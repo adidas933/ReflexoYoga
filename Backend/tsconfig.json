@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "typeRoots": [
+        "./node_modules/@types",
+        "./types" // Add this line
+      ],
+        "target": "ES6",
+        "moduleResolution": "Node",
+        "esModuleInterop": true,
+        "removeComments": true
+    }
+}
+
