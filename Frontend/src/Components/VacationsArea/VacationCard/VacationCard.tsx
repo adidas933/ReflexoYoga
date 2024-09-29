@@ -24,6 +24,8 @@ export function VacationCard(props: VacationModel): JSX.Element {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [likesCount, setLikesCount] = useState(props.usersLikes?.length || 0);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [showMore, setShowMore] = useState<boolean>(false);  // New state for read more
+
 
   useEffect(() => {
     const fetchLikes = async () => {
@@ -91,6 +93,10 @@ export function VacationCard(props: VacationModel): JSX.Element {
   };
   const imageUrl = typeof props.image === "string" ? props.image : "";
 
+  const truncateDescription = (description: string, length: number): string => {
+    return description.length > length ? description.substring(0, length) + '...' : description;
+  };
+
   return (
     <Card sx={{ maxWidth: 345, margin: '20px', position: 'relative' }}>
       <CardMedia
@@ -104,7 +110,18 @@ export function VacationCard(props: VacationModel): JSX.Element {
           {props.destination}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {props.description}
+          {/* Conditionally render full or truncated description */}
+          {showMore ? props.description : truncateDescription(props.description, 100)}
+          {/* Show the Read More / Read Less button if description is too long */}
+          {props.description.length > 100 && (
+            <Button
+              size="small"
+              onClick={() => setShowMore(!showMore)}
+              color="primary"
+            >
+              {showMore ? 'Read Less' : 'Read More'}
+            </Button>
+          )}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Start Date: {formatDate(props.startDate)}

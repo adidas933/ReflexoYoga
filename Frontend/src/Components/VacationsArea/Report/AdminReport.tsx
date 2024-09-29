@@ -16,14 +16,9 @@ const AdminReport: React.FC = () => {
     const fetchVacationLikes = async () => {
       if (user && user.roleId === Role.Admin) {
         try {
-          const vacations = await vacationService.getAllVacations();
-          
-          // Check if vacations is an array or an object
-          const vacationList: VacationModel[] = Array.isArray(vacations) 
-            ? vacations 
-            : vacations.vacations; // Access the array from the object if it's not an array
+          const vacations = await vacationService.getAllVacations(); // Now guaranteed to be an array
 
-          const likesCount = vacationList.map((vacation: VacationModel) => ({
+          const likesCount = vacations.map((vacation: VacationModel) => ({
             destination: vacation.destination,
             likes: vacation.usersLikes?.length || 0,
           }));

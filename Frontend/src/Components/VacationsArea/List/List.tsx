@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Box, Button, Grid, Pagination } from '@mui/material'; // Import Pagination
+import { Box, Button, Grid, Pagination } from '@mui/material';
 import { vacationService } from '../../../Services/VacationService';
-import { notify } from '../../../Utils/Notify';
 import { useSelector } from 'react-redux';
 import { RootState, vacationActions } from '../../../Redux/store';
 import { useDispatch } from 'react-redux';
@@ -11,39 +10,30 @@ import { UserModel } from '../../../Models/UserModel';
 import { Role } from '../../../Models/enums';
 
 function List(): JSX.Element {
+  // redux:
   const vacations = useSelector((state: RootState) => state.vacations);
   const user = useSelector((state: { user: UserModel | null }) => state.user);
   const dispatch = useDispatch();
-
+  // usestate:
   const [showLiked, setShowLiked] = useState<boolean>(false);
   const [likedVacations, setLikedVacations] = useState<VacationModel[]>([]);
   const [showActive, setShowActive] = useState<boolean>(false);
   const [showUpcoming, setShowUpcoming] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const [currentPage, setCurrentPage] = useState(1); // State for current page
-  const vacationsPerPage = 6; // Number of vacations per page
+  const vacationsPerPage = 9;
 
   useEffect(() => {
     const fetchVacations = async () => {
       try {
         const vacationsData = await vacationService.getAllVacations();
-
-        let vacationList: VacationModel[] = []
-
-        if (Array.isArray(vacationsData)) {
-          vacationList = vacationsData;
-        } else {
-          vacationList = vacationsData.vacations;
-        }
-
-        const sortedVacations = [...vacationList].sort(
-          (a: VacationModel, b: VacationModel) => {
-            return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
-          }
+        const sortedVacations = [...vacationsData].sort(
+          (a: VacationModel, b: VacationModel) =>
+            new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
         );
         dispatch(vacationActions.initVacations(sortedVacations));
       } catch (error) {
-        notify.error('Error fetching vacations');
+        console.log(error);
       }
     };
     fetchVacations();
@@ -102,7 +92,10 @@ function List(): JSX.Element {
     indexOfLastVacation
   );
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
     setCurrentPage(value);
   };
 
@@ -110,7 +103,11 @@ function List(): JSX.Element {
     <div className="List">
       <Box textAlign="center" marginBottom={2}>
         {user && user.roleId !== Role.Admin && (
-          <Button variant="contained" color="primary" onClick={handleToggleLiked}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleToggleLiked}
+          >
             {showLiked ? 'Show All Vacations' : 'Show Liked Vacations'}
           </Button>
         )}

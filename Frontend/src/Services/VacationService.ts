@@ -1,27 +1,21 @@
-
 import axios from 'axios';
 import { VacationModel } from '../Models/VacationModel';
 import { appConfig } from '../Utils/AppConfig';
 import { store, vacationActions } from '../Redux/store';
 
 class VacationService {
-  public async getAllVacations(page: number = 1, limit: number = 9) {
-    // First, check if the vacations are already in the store
-    if (store.getState().vacations.length > 0) {
-      return store.getState().vacations; // Return cached vacations if available
-    }
-    // If not available, fetch vacations from the server with pagination
-    const response = await axios.get<{
-      data: VacationModel[];
-      totalPages: number;
-      currentPage: number;
-    }>(`${appConfig.vacationsUrl}?page=${page}&limit=${limit}`);
-    const { data: vacations, totalPages, currentPage } = response.data;
-    // Init vacations in the global state:
-    const action = vacationActions.initVacations(vacations);
-    store.dispatch(action);
 
-    return { vacations, totalPages, currentPage };
+  public async getAllVacations() :Promise<VacationModel[]>{
+  if (store.getState().vacations.length > 0) {
+            return store.getState().vacations;
+        }
+        const response = await axios.get(appConfig.vacationsUrl);
+        
+        const data = response.data;
+
+        const action = vacationActions.initVacations(data);
+        store.dispatch(action);
+        return data;
   }
 
   public async getVacationsByUserId(userId: string) {
@@ -33,22 +27,19 @@ class VacationService {
     store.dispatch(action);
   }
 
-  async addVacation(vacation: VacationModel): Promise<void> { 
+  public async addVacation(vacation: VacationModel): Promise<void> {
     const response = await axios.post(appConfig.vacationsUrl, vacation, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     });
     vacation.image = response.data.image;
     if (store.getState().vacations) {
-        const action = vacationActions.addVacation(vacation);
-        store.dispatch(action);
+      const action = vacationActions.addVacation(vacation);
+      store.dispatch(action);
     }
     return response.data;
-}
-
-
-
+  }
 
   public async deleteVacation(_id: string) {
     // in order to send files/images:
