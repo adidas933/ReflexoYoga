@@ -8,16 +8,11 @@ import fs from 'fs';
 import { fileSaver } from 'uploaded-file-saver';
 
 class VacationService {
+
+  //  Retrieves all vacations from the database and populates the users who liked each vacation:
   public async getAllVacations() {
     const vacations = await VacationModel.find().populate('usersLikes').exec();
-
     return vacations;
-  }
-
-  public async getVacation(_id: string) {
-    const vacation = await VacationModel.findById(_id).exec();
-    if (!vacation) throw new ResourceNotFoundError(_id);
-    return vacation; // Ensure to return the found vacation
   }
 
   public async addVacation(vacation: IVacationModel) {
@@ -29,7 +24,6 @@ class VacationService {
   public async editVacation(vacation: IVacationModel) {
     const error = vacation.validateSync();
     if (error) throw new ValidationError(error.message);
-
     const updatedVacation = await VacationModel.findByIdAndUpdate(
       vacation._id,
       vacation,

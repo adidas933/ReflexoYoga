@@ -20,6 +20,8 @@ const EditVacationForm: React.FC<EditVacationFormProps> = ({
   vacation,
   onClose,
 }) => {
+  
+  // states:
   const [updatedVacation, setUpdatedVacation] =
     useState<VacationModel>(vacation);
   const [imageFile, setImageFile] = useState<File | null>(null); // State to store the selected image file

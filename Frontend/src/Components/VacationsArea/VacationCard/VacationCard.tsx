@@ -17,15 +17,17 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 export function VacationCard(props: VacationModel): JSX.Element {
+  
   const navigate = useNavigate();
+  // redux:
   const user = useSelector((state: { user: UserModel | null }) => state.user);
 
+  // states:
   const [likesArray, setLikesArray] = useState<LikeModel[]>([]);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [likesCount, setLikesCount] = useState(props.usersLikes?.length || 0);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [showMore, setShowMore] = useState<boolean>(false);  // New state for read more
-
 
   useEffect(() => {
     const fetchLikes = async () => {

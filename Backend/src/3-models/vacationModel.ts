@@ -54,7 +54,6 @@ export const VacationSchema = new Schema<IVacationModel>(
   }
 );
 
-// Virtual field for users_likes
 VacationSchema.virtual('usersLikes', {
   ref: LikesModel, // Reference to LikesModel
   localField: '_id', // Local field in VacationModel

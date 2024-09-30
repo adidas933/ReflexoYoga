@@ -16,7 +16,7 @@ const AdminReport: React.FC = () => {
     const fetchVacationLikes = async () => {
       if (user && user.roleId === Role.Admin) {
         try {
-          const vacations = await vacationService.getAllVacations(); // Now guaranteed to be an array
+          const vacations = await vacationService.getAllVacations(); 
 
           const likesCount = vacations.map((vacation: VacationModel) => ({
             destination: vacation.destination,
@@ -29,7 +29,7 @@ const AdminReport: React.FC = () => {
       }
     };
 
-    fetchVacationLikes(); // Initial fetch
+    fetchVacationLikes(); 
     const intervalId = setInterval(fetchVacationLikes, 5000); // Fetch every 5 seconds
 
     return () => clearInterval(intervalId); // Clean up the interval on component unmount

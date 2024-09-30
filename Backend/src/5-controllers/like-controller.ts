@@ -36,20 +36,11 @@ class LikeController {
     try {
 
       const { userId, vacationId } = request.body;
-
-      // console.log('1like-controller: request.body: ' + request.body);
-
       const like = new LikesModel({
         userId: new mongoose.Types.ObjectId(userId),
         vacationId: new mongoose.Types.ObjectId(vacationId),
       });
-
-      // console.log('2like-controller: addLike: like: ' + like);
-
       const addedLike = await likeService.addLike(like);
-
-      // console.log('3like-controller: addLike: addedLike: ' + addedLike);
-
       response.status(StatusCode.Created).json(addedLike);
     } catch (err: any) {
       if (err.code === 11000) {
@@ -71,13 +62,7 @@ class LikeController {
     try {
 
       const _id = request.params._likeId;
-
-      // console.log('1like-controller: deleteLike: _id: ' + _id);
-
-      const deletedLike = await likeService.deleteLike(_id);
-
-      // console.log('2like-controller: deleteLike: deletedLike: ' + deletedLike);
-
+      await likeService.deleteLike(_id);
       response.sendStatus(StatusCode.NoContent);
 
     } catch (err: any) {

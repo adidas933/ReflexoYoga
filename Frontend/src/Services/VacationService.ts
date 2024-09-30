@@ -10,21 +10,10 @@ class VacationService {
             return store.getState().vacations;
         }
         const response = await axios.get(appConfig.vacationsUrl);
-        
         const data = response.data;
-
         const action = vacationActions.initVacations(data);
         store.dispatch(action);
         return data;
-  }
-
-  public async getVacationsByUserId(userId: string) {
-    const response = await axios.get<VacationModel[]>(
-      appConfig.vacationsByUserIdUrl + userId
-    );
-    const vacations = response.data;
-    const action = vacationActions.initVacations(vacations);
-    store.dispatch(action);
   }
 
   public async addVacation(vacation: VacationModel): Promise<void> {
@@ -60,7 +49,6 @@ class VacationService {
     if (imageFile) {
       formData.append('image', imageFile);
     }
-
     // Send the PUT request to update the vacation with form data
     try {
       const response = await axios.put<VacationModel>(
@@ -70,7 +58,6 @@ class VacationService {
           headers: { 'Content-Type': 'multipart/form-data' },
         }
       );
-
       const updatedVacation = response.data;
       const action = vacationActions.editVacation(updatedVacation);
       store.dispatch(action);

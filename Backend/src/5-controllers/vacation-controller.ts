@@ -15,10 +15,6 @@ class VacationController {
 
   private registerRoutes(): void {
     this.router.get('/vacations', this.getAllVacations);
-    this.router.get(
-      '/vacation-by-userId/:_id([a-fA-F0-9]{24})',
-      this.getVacation
-    );
     this.router.post('/vacations', this.addVacation);
     this.router.put('/vacations/:_id([a-fA-F0-9]{24})', this.editVacation);
     this.router.delete('/vacations/:_id([a-fA-F0-9]{24})', this.deleteVacation);
@@ -33,20 +29,6 @@ class VacationController {
     try {
       const vacations = await vacationService.getAllVacations();
       response.json(vacations);
-    } catch (err: any) {
-      next(err);
-    }
-  }
-
-  private async getVacation(
-    request: Request,
-    response: Response,
-    next: NextFunction
-  ): Promise<any> {
-    try {
-      const _id = request.params._id;
-      const data = await vacationService.getVacation(_id);
-      response.json(data);
     } catch (err: any) {
       next(err);
     }
