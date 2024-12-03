@@ -1,0 +1,285 @@
+[{
+  "_id": {
+    "$oid": "66f93189b710a352b19b204f"
+  },
+  "destination": "Prague",
+  "description": "An easy way to experience this vibrant city is with a customized Prague vacation package. Base yourself in the neighborhood of Mala Strana, which is good for views, culture and dining or go someplace else — our packages are all about you. A trip to Prague is an excellent opportunity to do a bit of sightseeing. Make sure you visit renowned attractions like Charles Bridge, Old Town Square and Wenceslas Square. Your ideal Prague vacation is just clicks away. Browse airfares, hotels and more on Expedia for a getaway that's tailored to suit your style.",
+  "startDate": {
+    "$date": "2024-10-22T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2024-10-29T00:00:00.000Z"
+  },
+  "price": 399,
+  "image": "http://localhost:4000/api/vacations/images/prague.jpg"
+},
+{
+  "_id": {
+    "$oid": "66f931f2b710a352b19b2051"
+  },
+  "destination": "Bangkok",
+  "description": "From its highlights to its hidden treasures, this city is best experienced with a Bangkok vacation package. Find a place to stay in Bang Rak, which is good for shopping, nightlife and markets. Grand Palace, Wat Arun and Wat Pho are just some of the attractions you'll want to see during your trip to Bangkok. Check out Expedia's wide range of travel options and begin planning your ultimate vacation to Bangkok today.",
+  "startDate": {
+    "$date": "2024-10-29T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2024-11-26T00:00:00.000Z"
+  },
+  "price": 1299,
+  "image": "http://localhost:4000/api/vacations/images/bangkok.jpg"
+},
+{
+  "_id": {
+    "$oid": "66f9325ab710a352b19b2053"
+  },
+  "destination": "Jerusalem",
+  "description": "Our Jerusalem Tours offer a variety of different experiences in the holiest city of them all. From one day introductory tours to religious-themed tours, packages tours, culinary tours, and more, the tours offered by Tourist Israel include something for everyone. We offer the most popular one day tours featuring the highlights of the Old and New parts of the city to Christian and Jewish focused tours following in the footsteps of the Biblical stories.",
+  "startDate": {
+    "$date": "2024-10-22T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2024-10-27T00:00:00.000Z"
+  },
+  "price": 599,
+  "image": "http://localhost:4000/api/vacations/images/jerusalem.jpg"
+},
+{
+  "_id": {
+    "$oid": "66f932b1b710a352b19b2055"
+  },
+  "destination": "Amsterdam",
+  "description": "With plenty of highlights as well as some hidden gems, this city is best experienced with a Amsterdam vacation package. Find somewhere to stay in Binnenstad, which is good for cafes, bars and pubs and history. Fill up your itinerary with visits to Van Gogh Museum, Anne Frank House and Leidseplein, some of the top attractions you really should see during a trip to Amsterdam. Your ultimate Amsterdam vacation is just clicks away. Explore hotels, airfares and more on Expedia for a getaway that's tailored to suit your style.",
+  "startDate": {
+    "$date": "2024-10-29T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2024-11-05T00:00:00.000Z"
+  },
+  "price": 449,
+  "image": "http://localhost:4000/api/vacations/images/amsterdam.jpg"
+},
+{
+  "_id": {
+    "$oid": "66f93305b710a352b19b2057"
+  },
+  "destination": "New-Delhi",
+  "description": "With plenty of highlights as well as hidden gems, this city is best experienced with a New Delhi vacation package. Find a place to stay in Connaught Place, which is good for markets, shopping and nightlife. Make your trip to New Delhi even more exciting by including some sightseeing. Swaminarayan Akshardham Temple, Red Fort and India Gate are among the big attractions you'll want to explore. Whoever you're traveling with and whatever your budget, your ultimate New Delhi vacation is just clicks away with Expedia.",
+  "startDate": {
+    "$date": "2024-10-22T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2024-11-09T00:00:00.000Z"
+  },
+  "price": 1199,
+  "image": "http://localhost:4000/api/vacations/images/new-delhi.jpg"
+},
+{
+  "_id": {
+    "$oid": "66f93354b710a352b19b2059"
+  },
+  "destination": "Berlin",
+  "description": "Berlin awaits you. Visit the great museums & sights and then relax in a café. Look forward to concerts & shows, stroll through the shops and discover with us all the diversity of Berlin.",
+  "startDate": {
+    "$date": "2024-10-23T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2024-10-26T00:00:00.000Z"
+  },
+  "price": 499,
+  "image": "http://localhost:4000/api/vacations/images/berlin.jpg"
+},
+{
+  "_id": {
+    "$oid": "66f933d3b710a352b19b205b"
+  },
+  "destination": "Canberra",
+  "description": "Delight in a foodie wonderland with a side of world-class art, breathtaking nature and family fun all within easy reach. Take a heart-pumping hike or cycle the trails through one of the world’s most sustainable cities. Top it off with a taste of the thriving cool-climate wine region. It’s more than you expect and it’s waiting for you.",
+  "startDate": {
+    "$date": "2024-11-29T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2024-12-07T00:00:00.000Z"
+  },
+  "price": 999,
+  "image": "http://localhost:4000/api/vacations/images/canberra.jpg"
+},
+{
+  "_id": {
+    "$oid": "66f9341db710a352b19b205d"
+  },
+  "destination": "Athens",
+  "description": "Book a Athens vacation package and get ready to experience everything this city has to offer. Consider staying in the neighborhood of Psirri, which is great for markets, nightlife and bars and pubs. If a sightseeing tour is on the agenda during your trip to Athens, check out big attractions like Parthenon, Acropolis Museum and Ancient Agora of Athens. A couple of quick clicks is all it takes to create the ultimate Athens vacation on Expedia.",
+  "startDate": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2024-10-08T00:00:00.000Z"
+  },
+  "price": 699,
+  "image": "http://localhost:4000/api/vacations/images/athens.jpg"
+},
+{
+  "_id": {
+    "$oid": "66f9346fb710a352b19b205f"
+  },
+  "destination": "Santorini",
+  "description": "Book a custom vacation package to Santorini and start looking forward to your next great adventure. Consider basing yourself in the neighborhood of Órmos Athiniós, which is good for gift and craft shops and cafes, for a real taste of this interesting city. Make your trip to Santorini even more enjoyable by including some sightseeing. Red Beach, Museum of Prehistoric Thira and Archaeological Museum of Thera are among the major attractions you'll want to explore. Check out Expedia's wide range of travel options and start planning your ideal vacation to Santorini now.",
+  "startDate": {
+    "$date": "2025-01-01T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-01-08T00:00:00.000Z"
+  },
+  "price": 559,
+  "image": "http://localhost:4000/api/vacations/images/santorini.jpg"
+},
+{
+  "_id": {
+    "$oid": "66f934e5b710a352b19b2063"
+  },
+  "destination": "Antalya",
+  "description": "Reserve a Antalya vacation package that has only the things you need and nothing you don't. Great for festivals, dining and gift and craft shops, consider staying in the neighborhood of Kaleiçi. Want to explore? Düden Waterfall, Antalya Archeological Museum and Antalya Clock Tower are a few of the leading places to visit during your trip to Antalya. No matter your travel plans or the size of your budget, organizing a tailored Antalya vacation is a cinch with Expedia.",
+  "startDate": {
+    "$date": "2025-05-01T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-05-08T00:00:00.000Z"
+  },
+  "price": 559,
+  "image": "http://localhost:4000/api/vacations/images/antalya.jpg"
+},
+{
+  "_id": {
+    "$oid": "66f93546b710a352b19b2065"
+  },
+  "destination": "Tbilisi",
+  "description": "Georgia’s capital, Tbilisi, is straight from the pages of a Gothic fairytale. A deep valley forms the backdrop to brightly colored turrets, cobblestoned streets, and a burgeoning art scene, while warm Georgian hospitality permeates the mix of contemporary and traditional restaurants serving up local favorites.",
+  "startDate": {
+    "$date": "2024-10-30T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2024-11-07T00:00:00.000Z"
+  },
+  "price": 699,
+  "image": "http://localhost:4000/api/vacations/images/tbilisi.jpg"
+},
+{
+  "_id": {
+    "$oid": "66f93599b710a352b19b2067"
+  },
+  "destination": "Tel-Aviv",
+  "description": "A youthful, modern metropolis with a diverse population, Tel Aviv dates back only to 1909. Clubs, bars, a thriving arts community, gay life and beaches attract artists, musicians and young professionals to Tel Aviv's more secular scene. Its UNESCO-designated Bauhaus architecture has won the city the moniker \"The White City.\" Walk, drive or catch cabs between the cultural exhibition pavilions of Haaretz Museum, historic Independence Hall Museum, bustling Carmel Market and Old Jaffa's boardwalk.",
+  "startDate": {
+    "$date": "2024-10-16T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2024-10-22T00:00:00.000Z"
+  },
+  "price": 499,
+  "image": "http://localhost:4000/api/vacations/images/tel-aviv.jpg"
+},
+{
+  "_id": {
+    "$oid": "66f935fdb710a352b19b2069"
+  },
+  "destination": "Hamburg",
+  "description": "Second only to Berlin in size and population, the city of Hamburg is home to one of the biggest harbors in Europe. A stroll along its many waterways and canals illustrates why it has been called the \"Venice of the North.\" Don't miss a trip to the local fish market (Fischmarkt), the Merchants District (marked by its imposing red-brick architecture), a fine dining experience along the river or a night out in the university quarter. And did we mention the Reeperbahn (red light district)? It's quite famous for its… red lights.",
+  "startDate": {
+    "$date": "2024-12-04T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2024-12-08T00:00:00.000Z"
+  },
+  "price": 529,
+  "image": "http://localhost:4000/api/vacations/images/hamburg.jpg"
+},
+{
+  "_id": {
+    "$oid": "66f9363db710a352b19b206b"
+  },
+  "destination": "Baku",
+  "description": "The historical center of Baku reveals its tumultuous past, from its roots as a Silk Road port city, through its oil boom to its Soviet period. The old city is a maze of alleys, mosques, historic buildings and remnants of fortification, including the Palace of the Shirvanshahs and the Maiden Tower, now listed among UNESCO's World Heritage Sites. Much more than a historic site, the city hosts vibrant arts and cultural activities, as well as a bustling modern business sector.",
+  "startDate": {
+    "$date": "2024-12-11T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2024-12-19T00:00:00.000Z"
+  },
+  "price": 899,
+  "image": "http://localhost:4000/api/vacations/images/baku.jpg"
+},
+{
+  "_id": {
+    "$oid": "66f93694b710a352b19b206d"
+  },
+  "destination": "Caribbean",
+  "description": "A trip to the Caribbean islands may be just what you need if you're in search of some sun, sand and relaxation. Based on user votes and expert insights, plus factors like accessibility to beaches, tourist attractions and comfortable accommodations, U.S. News compiled a list of the best places to visit in the Caribbean for a getaway. Help us evaluate next year's top places by voting for your favorite destinations. And if you're in search of lodging, check out the Best Hotels in the Caribbean.",
+  "startDate": {
+    "$date": "2025-01-09T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-01-23T00:00:00.000Z"
+  },
+  "price": 1059,
+  "image": "http://localhost:4000/api/vacations/images/caribbean.jpg"
+},
+{
+  "_id": {
+    "$oid": "66f936f1b710a352b19b206f"
+  },
+  "destination": "Seychelles",
+  "description": "Our Seychelles vacation packages make it a piece of cake to experience this exciting destination. From Victoria and its nature to every other enticing city and town, there are countless reasons to go. Your trip to Seychelles wouldn't be complete without visiting its best cities, starting with Beau Vallon, Glacis and GrandAnse Praslin. Start packing your suitcase, because your Seychelles vacation is just clicks away with Expedia.",
+  "startDate": {
+    "$date": "2025-07-09T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-07-25T00:00:00.000Z"
+  },
+  "price": 1399,
+  "image": "http://localhost:4000/api/vacations/images/sayechelles.jpg"
+},
+{
+  "_id": {
+    "$oid": "66f93741b710a352b19b2071"
+  },
+  "destination": "New-York",
+  "description": "New York is one of those magical destinations that's on every traveler's bucket list, and rightly so. There is so much to do on New York vacations, whether you're a first-timer zooming around the city trying to tick off all the major sights, or a returning visitor who knows SoHo from the Upper East Side and wants to see a different side of the Big Apple. Popular attractions like Times Square, a Broadway show, and the Statue of Liberty are must-dos, but dig a little deeper and you'll discover a buzzing world of entertainment, food, and culture that is a true feast for the eyes and the soul. In , prices for flights and hotels to New York start .",
+  "startDate": {
+    "$date": "2025-01-16T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-02-12T00:00:00.000Z"
+  },
+  "price": 1499,
+  "image": "http://localhost:4000/api/vacations/images/new-york.jpg"
+},
+{
+  "_id": {
+    "$oid": "66f93784b710a352b19b2073"
+  },
+  "destination": "Washington",
+  "description": "Looking for a wine-focused weekend itinerary or things to do in our vibrant cities and towns? We have plenty of inspiration to help you plan your next trip and get a sense of all that awaits you in our corner of the Pacific Northwest. Explore stories covering a range of topics and interests, and then choose your own adventure in Washington State.",
+  "startDate": {
+    "$date": "2024-12-11T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-01-10T00:00:00.000Z"
+  },
+  "price": 1199,
+  "image": "http://localhost:4000/api/vacations/images/washington.jpg"
+},
+{
+  "_id": {
+    "$oid": "66f937d8b710a352b19b2075"
+  },
+  "destination": "London",
+  "description": "There's nowhere in the world like London. The English capital is a city of sublime contrasts that combine to make a captivating whole. Towering skyscrapers meet quaint village-style neighborhoods, quintessential English charm meets global flair, centuries of history meet the cutting edge. You'll find an influence from virtually everywhere in the world in this proudly cosmopolitan city where the local meets the global. And from Buckingham Palace to Big Ben, there are plenty of attractions to check off your bucket list on your dream trip to London. Browse London vacation options on Expedia and book that trip of a lifetime today.",
+  "startDate": {
+    "$date": "2025-01-17T00:00:00.000Z"
+  },
+  "endDate": {
+    "$date": "2025-01-22T00:00:00.000Z"
+  },
+  "price": 799,
+  "image": "http://localhost:4000/api/vacations/images/london.jpg"
+}]

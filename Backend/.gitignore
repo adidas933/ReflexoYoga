@@ -1,0 +1,19 @@
+# Frontend
+node_modules/
+logs
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.env
+/dist
+/build
+*.tmp
+*.temp
+.vscode/
+.idea/
+
+# Backend
+/uploads/          # Example for uploaded files
+/logs/             # Example for backend logs
+.env.local         # Ignore local environment files

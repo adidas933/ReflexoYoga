@@ -1,0 +1,165 @@
+[{
+  "_id": {
+    "$oid": "66f939d3b710a352b19b2083"
+  },
+  "userId": {
+    "$oid": "66f27635eb488f0dbc65463c"
+  },
+  "vacationId": {
+    "$oid": "66f93599b710a352b19b2067"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f939d5b710a352b19b2085"
+  },
+  "userId": {
+    "$oid": "66f27635eb488f0dbc65463c"
+  },
+  "vacationId": {
+    "$oid": "66f93305b710a352b19b2057"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f939d6b710a352b19b2087"
+  },
+  "userId": {
+    "$oid": "66f27635eb488f0dbc65463c"
+  },
+  "vacationId": {
+    "$oid": "66f93354b710a352b19b2059"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f939d7b710a352b19b2089"
+  },
+  "userId": {
+    "$oid": "66f27635eb488f0dbc65463c"
+  },
+  "vacationId": {
+    "$oid": "66f93546b710a352b19b2065"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f93a12b710a352b19b20be"
+  },
+  "userId": {
+    "$oid": "66f93a0fb710a352b19b20b1"
+  },
+  "vacationId": {
+    "$oid": "66f93599b710a352b19b2067"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f93a13b710a352b19b20c0"
+  },
+  "userId": {
+    "$oid": "66f93a0fb710a352b19b20b1"
+  },
+  "vacationId": {
+    "$oid": "66f9341db710a352b19b205d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f93a14b710a352b19b20c2"
+  },
+  "userId": {
+    "$oid": "66f93a0fb710a352b19b20b1"
+  },
+  "vacationId": {
+    "$oid": "66f93189b710a352b19b204f"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f93a15b710a352b19b20c4"
+  },
+  "userId": {
+    "$oid": "66f93a0fb710a352b19b20b1"
+  },
+  "vacationId": {
+    "$oid": "66f93305b710a352b19b2057"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f93a17b710a352b19b20c6"
+  },
+  "userId": {
+    "$oid": "66f93a0fb710a352b19b20b1"
+  },
+  "vacationId": {
+    "$oid": "66f9325ab710a352b19b2053"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f93a19b710a352b19b20c8"
+  },
+  "userId": {
+    "$oid": "66f93a0fb710a352b19b20b1"
+  },
+  "vacationId": {
+    "$oid": "66f932b1b710a352b19b2055"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f93a1bb710a352b19b20d3"
+  },
+  "userId": {
+    "$oid": "66f93a0fb710a352b19b20b1"
+  },
+  "vacationId": {
+    "$oid": "66f937d8b710a352b19b2075"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f93a1cb710a352b19b20d5"
+  },
+  "userId": {
+    "$oid": "66f93a0fb710a352b19b20b1"
+  },
+  "vacationId": {
+    "$oid": "66f934e5b710a352b19b2063"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f93a2eb710a352b19b20f2"
+  },
+  "userId": {
+    "$oid": "66f93a0fb710a352b19b20b1"
+  },
+  "vacationId": {
+    "$oid": "66f9341db710a352b19b205d"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f93a2fb710a352b19b20f4"
+  },
+  "userId": {
+    "$oid": "66f93a0fb710a352b19b20b1"
+  },
+  "vacationId": {
+    "$oid": "66f93189b710a352b19b204f"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f93a31b710a352b19b20f6"
+  },
+  "userId": {
+    "$oid": "66f93a0fb710a352b19b20b1"
+  },
+  "vacationId": {
+    "$oid": "66f93599b710a352b19b2067"
+  }
+}]
