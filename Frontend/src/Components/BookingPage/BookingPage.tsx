@@ -12,20 +12,36 @@ import {
   InputLabel,
 } from '@mui/material';
 import ServiceCard from './ServiceCard';
+import { bookingService } from '../../Services/BookingService';
 
 const BookingPage = () => {
   const [selectedService, setSelectedService] = useState('');
+  const [selectedInstructor, setSelectedInstructor] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
 
-  const handleBookingSubmit = () => {
-    // Placeholder for booking logic
-    alert(
-      `ההזמנה אושרה עבור ${selectedService} בתאריך ${selectedDate} בשעה ${selectedTime}`
-    );
+  const handleBookingSubmit = async () => {
+    const bookingData = {
+      service: selectedService,
+      instructor: selectedInstructor,
+      selectedDate: selectedDate,
+      selectedTime: selectedTime,
+      userName: userName,
+      userEmail: userEmail,
+    };
+
+    try {
+      // Add booking to backend
+      await bookingService.addBooking(bookingData);
+      alert(`Booking confirmed for ${selectedService} on ${selectedDate} at ${selectedTime} with ${selectedInstructor}`);
+    } catch (error) {
+      console.error('Error booking service:', error);
+      alert('There was an issue with your booking.');
+    }
   };
+
   const servicesList = [
     {
       title: 'שיעור יוגה',
@@ -52,6 +68,7 @@ const BookingPage = () => {
       link: '/sadhu-nails-booking',
     },
   ];
+
   return (
     <Container>
       <Typography variant="h4" sx={{ marginTop: '20px' }}>
@@ -60,7 +77,7 @@ const BookingPage = () => {
       <Box sx={{ marginTop: '20px' }}>
         <Grid container spacing={3}>
           {servicesList.map((item) => (
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} key={item.title}>
               <ServiceCard
                 title={item.title}
                 description={item.description}
@@ -71,6 +88,7 @@ const BookingPage = () => {
           ))}
         </Grid>
       </Box>
+
       <Box sx={{ marginTop: '40px' }}>
         <Typography variant="h6">פרטי המשתמש</Typography>
         <TextField
@@ -97,10 +115,24 @@ const BookingPage = () => {
             <MenuItem value="yoga">יוגה</MenuItem>
             <MenuItem value="reflexology">רפלקסולוגיה</MenuItem>
             <MenuItem value="ice_bath">אמבטיית קרח</MenuItem>
-            <MenuItem value="sadhu_nails">מסמרי סאדהו</MenuItem>{' '}
-            {/* New Service Option */}
+            <MenuItem value="sadhu_nails">מסמרי סאדהו</MenuItem>
           </Select>
         </FormControl>
+
+        {/* Instructor Selection */}
+        <FormControl fullWidth sx={{ marginBottom: '15px' }}>
+          <InputLabel>מורה</InputLabel>
+          <Select
+            value={selectedInstructor}
+            onChange={(e) => setSelectedInstructor(e.target.value)}
+            label="מורה"
+          >
+            <MenuItem value="instructor1">מורה 1</MenuItem>
+            <MenuItem value="instructor2">מורה 2</MenuItem>
+            <MenuItem value="instructor3">מורה 3</MenuItem>
+          </Select>
+        </FormControl>
+
         <TextField
           label="תאריך"
           type="date"

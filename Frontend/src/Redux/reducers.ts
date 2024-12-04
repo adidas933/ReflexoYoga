@@ -1,6 +1,29 @@
-import { Action, PayloadAction } from '@reduxjs/toolkit';
+import { Action,  PayloadAction } from '@reduxjs/toolkit';
 import { UserModel } from '../Models/UserModel';
+import { BookingModel } from '../Models/BookingModel';
 
+
+export function initBookings(currentState:BookingModel[], action: PayloadAction<BookingModel[]>) {
+  const newState: BookingModel[] = action.payload
+  console.log('Initializing bookings with: ', newState);
+  return newState
+}
+
+export function addBooking(currentState:BookingModel[],action:PayloadAction<BookingModel>) {
+  return [...currentState, action.payload]
+}
+
+export function deleteBooking(currentState:BookingModel[],action:PayloadAction<string>) {
+  const bookingId = action.payload
+  const newState:BookingModel[] = currentState.filter((booking) => booking._id !== bookingId)
+  return newState
+}
+
+export function editBooking(currentState:BookingModel[], action:PayloadAction<BookingModel>) {
+  const updatedBooking = action.payload
+  const newState:BookingModel[] = currentState.map((booking) => booking._id ===updatedBooking._id ? updatedBooking:booking)
+  return newState
+}
 
 // Init user
 export function initUser(
