@@ -20,6 +20,7 @@ const globalStyles = (
 );
 
 const theme = createTheme({
+  direction:'rtl',
   typography: {
     h1: {
       fontFamily: "'Assistant', sans-serif",
