@@ -1,5 +1,4 @@
 import { Box, Typography, Button } from "@mui/material";
-import "./page404.css";
 
 function Page404(): JSX.Element {
     return (
@@ -13,21 +12,26 @@ function Page404(): JSX.Element {
                 minHeight: '100vh',
                 textAlign: 'center',
                 padding: 2,
+                direction: 'rtl', // Set text direction to right-to-left for Hebrew
             }}
         >
             <Typography variant="h4" component="h1" gutterBottom>
-                Oops! The page you are looking for doesn't exist.
+                אופס! הדף שאתה מחפש לא קיים.
             </Typography>
-            <iframe
+            <Box
+                component="iframe"
                 width="560"
                 height="315"
                 src="https://www.youtube.com/embed/t3otBjVZzT0?autoplay=true"
                 allow="autoplay"
                 title="Page not Found"
-                style={{ border: 'none', marginBottom: '20px' }}
-            ></iframe>
+                sx={{
+                    border: 'none',
+                    mb: 2, // marginBottom is converted to sx shorthand
+                }}
+            ></Box>
             <Button variant="contained" color="primary" onClick={() => window.location.href = '/'}>
-                Go Back Home
+                חזור לדף הבית
             </Button>
         </Box>
     );

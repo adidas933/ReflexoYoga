@@ -1,13 +1,35 @@
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import Layout from './Components/LayoutArea/Layout/Layout';
-import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { store } from './Redux/store';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
+import { GlobalStyles } from '@mui/material';
+import { store } from './Redux/store';
+
+const globalStyles = (
+  <GlobalStyles
+    styles={{
+      'html, body, #root': {
+        '.css-19xx1rt': {
+          padding: 0,
+        },
+      },
+    }}
+  />
+);
 
 const theme = createTheme({
+  direction:'rtl',
+  typography: {
+    h1: {
+      fontFamily: "'Assistant', sans-serif",
+      fontWeight: 700,
+    },
+    body1: {
+      fontFamily: "'Assistant', sans-serif",
+    },
+  },
   // You can customize your theme here
   palette: {
     primary: {
@@ -27,6 +49,7 @@ root.render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      {globalStyles} {/* Inject global styles */}
       <BrowserRouter>
         <Layout />
       </BrowserRouter>

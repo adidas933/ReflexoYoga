@@ -1,5 +1,4 @@
 import { Typography, Box } from "@mui/material";
-import "./Copyrights.css";
 
 function Copyrights(): JSX.Element {
     return (
@@ -16,7 +15,7 @@ function Copyrights(): JSX.Element {
             }}
         >
             <Typography variant="body2">
-                All Rights Reserved ©
+                כל הזכויות שמורות ©
             </Typography>
         </Box>
     );

@@ -1,32 +1,32 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import {
-  addVacation,
-  deleteVacation,
-  editVacation,
+  addBooking,
+  deleteBooking,
+  editBooking,
+  initBookings,
   initUser,
-  initVacations,
   logoutUser,
 } from './reducers';
-import { VacationModel } from '../Models/VacationModel';
 import { UserModel } from '../Models/UserModel';
+import { BookingModel } from '../Models/BookingModel';
 
 // Application state:
 export type AppState = {
-  vacations: VacationModel[]; // Start with empty array rather than null
+  bookings: BookingModel[]
   user: UserModel;
 };
 
 // Vacation slice:
-const vacationSlice = createSlice({
-  name: 'vacations',
-  initialState: [] as VacationModel[], // Empty array as default state
+const bookingSlice = createSlice({
+  name: 'bookings',
+  initialState: [] as BookingModel[],
   reducers: {
-    initVacations,
-    addVacation,
-    deleteVacation,
-    editVacation
-  },
-});
+    initBookings,
+    addBooking,
+    deleteBooking,
+    editBooking
+  }
+})
 
 // User slice:
 const userSlice = createSlice({
@@ -36,13 +36,12 @@ const userSlice = createSlice({
 });
 
 // Creating action creators:
-export const vacationActions = vacationSlice.actions;
 export const userActions = userSlice.actions;
-
+export const bookingActions = bookingSlice.actions
 // Main redux store:
 export const store = configureStore<AppState>({
   reducer: {
-    vacations: vacationSlice.reducer, // Vacation state
+    bookings: bookingSlice.reducer,
     user: userSlice.reducer, // User state
   },
 });

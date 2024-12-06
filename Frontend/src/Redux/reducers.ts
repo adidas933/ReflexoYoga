@@ -1,46 +1,28 @@
-import { Action, PayloadAction } from '@reduxjs/toolkit';
-import { VacationModel } from '../Models/VacationModel';
+import { Action,  PayloadAction } from '@reduxjs/toolkit';
 import { UserModel } from '../Models/UserModel';
+import { BookingModel } from '../Models/BookingModel';
 
-// Init(ialize) all vacations
-export function initVacations(
-  currentState: VacationModel[],
-  action: PayloadAction<VacationModel[]>
-) {
-  const newState: VacationModel[] = action.payload;
-  console.log('Initializing Vacations with:', newState); // Log new state
-  return newState; // action.payload is all products to init.
+
+export function initBookings(currentState:BookingModel[], action: PayloadAction<BookingModel[]>) {
+  const newState: BookingModel[] = action.payload
+  console.log('Initializing bookings with: ', newState);
+  return newState
 }
 
-// Add vacation
-export function addVacation(
-  currentState: VacationModel[],
-  action: PayloadAction<VacationModel>
-) {
-  return [...currentState, action.payload];
-
+export function addBooking(currentState:BookingModel[],action:PayloadAction<BookingModel>) {
+  return [...currentState, action.payload]
 }
 
-export function deleteVacation(
-  currentState: VacationModel[],
-  action: PayloadAction<string>
-) {
-  const vacationId = action.payload;
-  const newState: VacationModel[] = currentState.filter(
-    (vacation) => vacation._id !== vacationId
-  );
-  return newState;
+export function deleteBooking(currentState:BookingModel[],action:PayloadAction<string>) {
+  const bookingId = action.payload
+  const newState:BookingModel[] = currentState.filter((booking) => booking._id !== bookingId)
+  return newState
 }
 
-export function editVacation(
-  currentState: VacationModel[],
-  action: PayloadAction<VacationModel>
-) {
-  const updatedVacation = action.payload; // Get the updated vacation from the action
-  const newState: VacationModel[] = currentState.map((vacation) =>
-    vacation._id === updatedVacation._id ? updatedVacation : vacation
-  ); // Replace the old vacation with the updated one
-  return newState; // Return the new state with the updated vacation
+export function editBooking(currentState:BookingModel[], action:PayloadAction<BookingModel>) {
+  const updatedBooking = action.payload
+  const newState:BookingModel[] = currentState.map((booking) => booking._id ===updatedBooking._id ? updatedBooking:booking)
+  return newState
 }
 
 // Init user

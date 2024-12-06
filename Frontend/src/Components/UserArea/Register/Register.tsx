@@ -1,10 +1,9 @@
 import { useForm } from 'react-hook-form';
-import './Register.css';
-import { UserModel } from '../../../Models/UserModel';
 import { useNavigate } from 'react-router-dom';
-import { userService } from '../../../Services/UserService';
 import { notify } from '../../../Utils/Notify';
 import { TextField, Button, Box, Typography, Container } from '@mui/material';
+import { userService } from '../../../Services/UserService';
+import { UserModel } from '../../../Models/UserModel';
 
 export function Register(): JSX.Element {
   const {
@@ -14,12 +13,10 @@ export function Register(): JSX.Element {
   } = useForm<UserModel>();
   const navigate = useNavigate();
 
-
-
   async function validateEmail(email: string) {
     const isRegistered = await userService.isEmailRegistered(email);
     if (isRegistered) {
-      return 'Email is already registered';
+      return 'אימייל זה כבר רשום';
     }
     return true;
   }
@@ -27,7 +24,7 @@ export function Register(): JSX.Element {
   async function send(user: UserModel) {
     try {
       await userService.register(user);
-      notify.success('Welcome ' + user.firstName);
+      notify.success('ברוך הבא ' + user.firstName);
       navigate('/home');
     } catch (err: any) {
       notify.error(err);
@@ -45,18 +42,18 @@ export function Register(): JSX.Element {
         }}
       >
         <Typography component="h1" variant="h5">
-          Register
+          הרשמה
         </Typography>
         <Box component="form" onSubmit={handleSubmit(send)} sx={{ mt: 3 }}>
           <TextField
             fullWidth
-            label="First Name"
+            label="שם פרטי"
             margin="normal"
             {...register('firstName', {
-              required: 'First name is required',
+              required: 'שם פרטי נדרש',
               minLength: {
                 value: 2,
-                message: 'First name must be at least 2 characters',
+                message: 'שם פרטי חייב להיות לפחות 2 תווים',
               },
             })}
             error={!!errors.firstName}
@@ -64,13 +61,13 @@ export function Register(): JSX.Element {
           />
           <TextField
             fullWidth
-            label="Last Name"
+            label="שם משפחה"
             margin="normal"
             {...register('lastName', {
-              required: 'Last name is required',
+              required: 'שם משפחה נדרש',
               minLength: {
                 value: 2,
-                message: 'Last name must be at least 2 characters',
+                message: 'שם משפחה חייב להיות לפחות 2 תווים',
               },
             })}
             error={!!errors.lastName}
@@ -78,37 +75,36 @@ export function Register(): JSX.Element {
           />
           <TextField
             fullWidth
-            label="Email"
+            label="אימייל"
             type="email"
             margin="normal"
             {...register('email', {
-              required: 'Email is required',
+              required: 'אימייל נדרש',
               pattern: {
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: 'Please enter a valid email address',
+                message: 'אנא הכנס אימייל תקין',
               },
-              validate: validateEmail, // Asynchronous validation to check if email is already registered
-
+              validate: validateEmail, // בדיקה אסינכרונית לבדוק אם האימייל כבר רשום
             })}
             error={!!errors.email}
             helperText={errors.email?.message}
           />
           <TextField
             fullWidth
-            label="Password"
+            label="סיסמא"
             type="password"
             margin="normal"
             {...register('password', {
-              required: 'Password is required',
+              required: 'סיסמא נדרשת',
               minLength: {
                 value: 8,
-                message: 'Password must be at least 8 characters long',
+                message: 'הסיסמא חייבת להיות לפחות 8 תווים',
               },
               pattern: {
                 value:
                   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
                 message:
-                  'Password must include at least one uppercase letter, one lowercase letter, one number, and one special character',
+                  'הסיסמא חייבת לכלול לפחות אות רישית אחת, אות קטנה אחת, מספר ואות מיוחדת אחת',
               },
             })}
             error={!!errors.password}
@@ -120,7 +116,7 @@ export function Register(): JSX.Element {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Register
+            הרשמה
           </Button>
         </Box>
       </Box>

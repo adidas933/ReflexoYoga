@@ -10,8 +10,6 @@ class Cyber {
   private hashingSalt = 'MakeThingsGoRight!!!';
 
   public hash(plainText: string): string {
-    // Hash without salt:
-    // return crypto.createHash("sha512").update(plainText).digest("hex"); // Returns 128 chars string.
 
     // Hash with salt:
     return crypto

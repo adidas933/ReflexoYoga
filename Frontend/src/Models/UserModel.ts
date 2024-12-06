@@ -1,4 +1,4 @@
-import { Role } from '../Models/enums';
+import { Role } from './enums';
 
 export class UserModel {
   public _id: string;

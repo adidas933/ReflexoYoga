@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-import { CredentialsModel } from "../../../Models/CredentialsModel";
 import { useNavigate } from "react-router-dom";
-import { userService } from "../../../Services/UserService";
 import { notify } from "../../../Utils/Notify";
 import { TextField, Button, Box, Typography, Container } from '@mui/material';
+import { CredentialsModel } from "../../../Models/CredentialsModel";
+import { userService } from "../../../Services/UserService";
 
 export function Login(): JSX.Element {
     const { register, handleSubmit } = useForm<CredentialsModel>();
@@ -12,7 +12,7 @@ export function Login(): JSX.Element {
     async function send(credentials: CredentialsModel) {
         try {
             await userService.login(credentials);
-            notify.success("Welcome back!");
+            notify.success("ברוכים השבים!");
             navigate("/home");
         } catch (err: any) {
             notify.error(err);
@@ -30,12 +30,12 @@ export function Login(): JSX.Element {
                 }}
             >
                 <Typography component="h1" variant="h5">
-                    Login
+                    !ברוכים השבים
                 </Typography>
                 <Box component="form" onSubmit={handleSubmit(send)} sx={{ mt: 3 }}>
                     <TextField
                         fullWidth
-                        label="Email"
+                        label="אימייל"
                         type="email"
                         margin="normal"
                         {...register("email")}
@@ -43,7 +43,7 @@ export function Login(): JSX.Element {
                     />
                     <TextField
                         fullWidth
-                        label="Password"
+                        label="סיסמא"
                         type="password"
                         margin="normal"
                         {...register("password")}
@@ -55,7 +55,7 @@ export function Login(): JSX.Element {
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                     >
-                        Login
+                        כניסה
                     </Button>
                 </Box>
             </Box>
