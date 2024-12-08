@@ -5,16 +5,16 @@ import {
   Button,
   CardMedia,
 } from '@mui/material';
-import { NavLink } from 'react-router-dom';
 
 interface ServiceCardProps {
   title: string;
   description: string;
   image: string;
   link: string;
+  onOrderNow:(serviceName:string) => void
 }
 
-const ServiceCard = ({ title, description, image, link }: ServiceCardProps) => {
+const ServiceCard = ({ title, description, image, link,onOrderNow }: ServiceCardProps) => {
   return (
     <Card
       sx={{
@@ -50,8 +50,7 @@ const ServiceCard = ({ title, description, image, link }: ServiceCardProps) => {
           {description}
         </Typography>
         <Button
-          component={NavLink}
-          to={link}
+        onClick={() => onOrderNow(title)}
           sx={{
             marginTop: '10px',
             backgroundColor: '#6a1b9a',

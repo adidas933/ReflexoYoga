@@ -3,7 +3,7 @@ import { Document, model, Schema } from 'mongoose';
 export interface IInstructorModel extends Document {
   name: string;
   bio: string;
-  availableTimes: string[];
+  unavailableTimes: string[];
 }
 
 export const InstructorSchema = new Schema<IInstructorModel>(
@@ -22,9 +22,9 @@ export const InstructorSchema = new Schema<IInstructorModel>(
       maxlength: [500, 'Bio too long'],
       trim: true,
     },
-    availableTimes: {
+    unavailableTimes: {
       type: [String],
-      required: [true, 'Missing available times'],
+      required: [true, 'Missing unavailable times'],
     },
   },
   {

@@ -9,7 +9,7 @@ class UserController {
   public readonly router = express.Router();
 
   public constructor() {
-    this.router.post('/register', this.register);
+    this.router.post('/register',  this.register);
     this.router.post('/login', this.login);
     this.router.post('/check-email', this.checkEmail)
   }

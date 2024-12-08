@@ -32,10 +32,10 @@ class BookingService {
     ).exec();
     if (!instructor) throw new ResourceNotFoundError('Instructor not found.');
     // Check instructor availablity
-    const isAvailable = instructor.availableTimes.includes(
+    const isUnavailable = instructor.unavailableTimes.includes(
       booking.selectedTime
     );
-    if (!isAvailable)
+    if (isUnavailable)
       throw new ConflictError(
         'Instructor is not available at the selected time.'
       );
