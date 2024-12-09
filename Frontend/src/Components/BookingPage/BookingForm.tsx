@@ -1,31 +1,84 @@
-import { useForm } from "react-hook-form"
-import { BookingModel } from "../../Models/BookingModel"
-import { useNavigate } from "react-router-dom"
-import { bookingService } from "../../Services/BookingService"
-import { notify } from "../../Utils/Notify"
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material"
+import { useForm } from 'react-hook-form';
+import { BookingModel } from '../../Models/BookingModel';
+import { bookingService } from '../../Services/BookingService';
+import { useNavigate } from 'react-router-dom';
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from '@mui/material'; // MUI Components
+import { notify } from '../../Utils/Notify';
+import { useEffect, useState } from 'react';
 
-interface BookingFormProps {
-  serviceName:string
+interface Instructor {
+  _id:string
+  name:string
 }
 
-export function BookingForm({serviceName}:BookingFormProps) {
-  const {register,handleSubmit,formState:{errors}} = useForm<BookingModel>()
-  const navigate = useNavigate() 
+interface BookingFormProps {
+  serviceName: string;
+}
 
-  async function send(booking:BookingModel) {
+export function BookingForm({ serviceName }: BookingFormProps) {
+  const [instructors,setInstructors] = useState<Instructor[]>([])
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<BookingModel>();
+
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const fetchInstructors = async () => {
+      const data = await bookingService.getAllInstructors()
+      console.log('Fetched instructors: ' + data);
+      setInstructors(data)
+    }
+    fetchInstructors()
+  }, [])
+  
+  // Function to validate the date
+  const validateDate = (date: string) => {
+    const today = new Date();
+    const selectedDate = new Date(date);
+    if (selectedDate < today) {
+      return "Date can't be in the past";
+    }
+    return true;
+  };
+
+  async function send(booking: BookingModel) {
     try {
-      await bookingService.addBooking(booking)
-      notify.success('Booking created successfully')
-      navigate('/bookings')
-    } catch (error:any) {
-      console.error('Error creating booking: ', error)
+      // Create FormData to handle submission
+      const payload = {
+        selectedDate: booking.selectedDate,
+        selectedTime: booking.selectedTime,
+        instructorId: booking.instructorId,
+        serviceId: booking.serviceId,
+        userId: booking.userId,
+      };
+      // Send data to the backend
+      await bookingService.addBooking(payload);
+      // Notify user of success
+      notify.success('Booking created successfully');
+      navigate('/bookings'); // Redirect to booking list page
+    } catch (error) {
+      console.error('Error creating booking:', error);
+      notify.error('Failed to create booking');
     }
   }
 
   return (
     <Box
-      component='form'
+      component="form"
       onSubmit={handleSubmit(send)}
       sx={{
         maxWidth: 400,
@@ -37,56 +90,61 @@ export function BookingForm({serviceName}:BookingFormProps) {
       }}
     >
       <Typography
-      variant="h4"
-      component='h1'
-      sx={{textAlign:'center',marginBottom:3}}
+        variant="h4"
+        component="h1"
+        sx={{ textAlign: 'center', marginBottom: 3 }}
       >
-Book a service
+        Book a Service
       </Typography>
+
       <TextField
-      variant="outlined"
-      value={serviceName}
-      inputProps={{
-        readOnly:true
-      }}
+        variant="outlined"
+        value={serviceName}
+        inputProps={{
+          readOnly: true,
+        }}
       />
 
       <TextField
-      label="Date"
-      variant="outlined"
-      type="date"
-      {...register('selectedDate',{required:'Date is required',validate:(selectedDate:string) => {
-        const today = new Date().toISOString().split('T')[0]
-        return selectedDate >= today || "Date can't be in the past"
-      }})}
-      error={!!errors.selectedDate}
-      helperText={errors.selectedDate?.message}
-      InputLabelProps={{shrink:true}}
+        label="Date"
+        variant="outlined"
+        type="date"
+        {...register('selectedDate', {
+          required: 'Date is required',
+          validate: validateDate,
+        })}
+        error={!!errors.selectedDate}
+        helperText={errors.selectedDate?.message}
+        InputLabelProps={{ shrink: true }}
       />
 
       <TextField
-        label="Hour"
+        label="Time"
         variant="outlined"
         type="time"
-        {...register('selectedTime',  {required:'Hour is required'})}
+        {...register('selectedTime', {
+          required: 'Time is required',
+        })}
         error={!!errors.selectedTime}
         helperText={errors.selectedTime?.message}
-        InputLabelProps={{shrink:true}}
+        InputLabelProps={{ shrink: true }}
       />
 
       <FormControl fullWidth>
         <InputLabel id="instructor-label">Instructor</InputLabel>
         <Select
           labelId="instructor-label"
-          defaultValue=""
-          {...register('instructor',{required:'Instructor is required'})}
-        error={!!errors.instructor}>
-          <MenuItem value="John Doe">John Doe</MenuItem>
-          <MenuItem value="Jane Smith">Jane Smith</MenuItem>
-          <MenuItem value="Emily Johnson">Emily Johnson</MenuItem>
+          {...register('instructorId', {
+            required: 'Instructor is required',
+          })}
+          error={!!errors.instructorId}
+        >
+          {instructors.map((instructor) =>(
+            <MenuItem key={instructor._id} value={instructor._id}>{instructor.name}</MenuItem>
+          ))}
         </Select>
         <Typography variant="caption" color="error">
-          {errors.instructor?.message}
+          {errors.instructorId?.message}
         </Typography>
       </FormControl>
 
@@ -94,11 +152,18 @@ Book a service
         variant="contained"
         color="primary"
         type="submit"
-        sx={{marginTop:3}}
-        >
-          Confirm Booking
-        </Button>
-
+        sx={{ marginTop: 3 }}
+      >
+        Confirm Booking
+      </Button>
     </Box>
-  )
+  );
 }
+/* 
+{
+  "serviceId":"6755694c1acc3733920e2caa",
+  "instructorId":"675567fe1acc3733920e2ca2",
+  "userId": "6752bb5fdab3d5c2760dd43c",
+  "selectedDate": "2024-12-15",
+  "selectedTime":"14:30"
+} */

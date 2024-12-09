@@ -11,11 +11,15 @@ class BookingService {
   // Retrieve all bookings from the database
   public async getAllBookings() {
     const bookings = await BookingModel.find()
-      .populate('service')
-      .populate('instructor')
+      .populate('serviceId')
+      .populate('instructorId')
       .populate('userId')
       .exec();
     return bookings;
+  }
+  public async getAllInstructors() {
+    const instructors = await InstructorModel.find().exec();
+    return instructors;
   }
 
   // Add a new booking
@@ -24,15 +28,17 @@ class BookingService {
     const error = booking.validateSync();
     if (error) throw new ValidationError(error.message);
     // Check if service exists
-    const serviceExists = await ServiceModel.findById(booking.service).exec();
+    const serviceExists = await ServiceModel.findById(booking.serviceId).exec();
     if (!serviceExists) throw new ResourceNotFoundError('Service not found.');
     // Check if instructor exists
-    const instructor = await InstructorModel.findById(
-      booking.instructor
+    const instructorId = await InstructorModel.findById(
+      booking.instructorId
     ).exec();
-    if (!instructor) throw new ResourceNotFoundError('Instructor not found.');
+    console.log("Instructor id: " + instructorId);
+    if (!instructorId) throw new ResourceNotFoundError('Instructor not found.');
+    if (!instructorId.unavailableTimes || !Array.isArray(instructorId.unavailableTimes)) throw new ResourceNotFoundError('Instructor availability data is missing or invalid.');
     // Check instructor availablity
-    const isUnavailable = instructor.unavailableTimes.includes(
+    const isUnavailable = instructorId.unavailableTimes.includes(
       booking.selectedTime
     );
     if (isUnavailable)
@@ -41,7 +47,7 @@ class BookingService {
       );
     // Check for conflicting booking
     const conflictingBooking = await BookingModel.findOne({
-      instructor: booking.instructor,
+      instructorId: booking.instructorId,
       selectedDate: booking.selectedDate,
       selectedTime: booking.selectedTime,
     }).exec();
@@ -80,8 +86,8 @@ class BookingService {
   // Get a specific booking by ID
   public async getBookingById(_id: string) {
     const booking = await BookingModel.findById(_id)
-      .populate('service')
-      .populate('instructor')
+      .populate('serviceId')
+      .populate('instructorId')
       .populate('userId')
       .exec();
     if (!booking) throw new ResourceNotFoundError(_id);

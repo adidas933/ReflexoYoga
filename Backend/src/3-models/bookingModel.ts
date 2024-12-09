@@ -1,8 +1,8 @@
 import mongoose, { Document, model, Schema } from 'mongoose';
 
 export interface IBookingModel extends Document {
-  service: { type: mongoose.Schema.Types.ObjectId; ref: 'Service' };
-  instructor: { type: mongoose.Schema.Types.ObjectId; ref: 'Instructor' };
+  serviceId: { type: mongoose.Schema.Types.ObjectId; ref: 'ServiceId' };
+  instructorId: { type: mongoose.Schema.Types.ObjectId; ref: 'InstructorId' };
   userId: { type: mongoose.Schema.Types.ObjectId; ref: 'User' };
   selectedDate: Date;
   selectedTime: string;
@@ -10,20 +10,20 @@ export interface IBookingModel extends Document {
 
 export const BookingSchema = new Schema<IBookingModel>(
   {
-    service: {
+    serviceId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Service',
       required: [true, 'Missing service.'],
     },
-    instructor: {
+    instructorId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Instructor',
-      required: [true, 'Missing bio.'],
+      required: [true, 'Missing instructor id.'],
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required: [true, 'Missing available times'],
+      required: [true, 'Missing user id'],
     },
     selectedDate: {
       type: Date,

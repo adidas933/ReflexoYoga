@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { BookingModel } from '../Models/BookingModel';
-import { bookingActions, store } from '../Redux/store';
+import { bookingActions, instructorActions, store } from '../Redux/store';
 import { appConfig } from '../Utils/AppConfig';
+import { InstructorModel } from '../Models/InstructorModel';
 
 class BookingService {
   public async getAllBookings(): Promise<BookingModel[]> {
@@ -11,6 +12,16 @@ class BookingService {
     const response = await axios.get(appConfig.bookingsUrl);
     const data = response.data;
     const action = bookingActions.initBookings(data);
+    store.dispatch(action);
+    return data;
+  }
+  public async getAllInstructors(): Promise<InstructorModel[]> {
+    if (store.getState().instructors.length > 0) {
+      return store.getState().instructors;
+    }
+    const response = await axios.get(appConfig.instructorsUrl);
+    const data = response.data;
+    const action = instructorActions.initInstructors(data);
     store.dispatch(action);
     return data;
   }

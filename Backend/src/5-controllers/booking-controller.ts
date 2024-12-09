@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import { bookingService } from '../4-services/booking-service';
 import { StatusCode } from '../3-models/enums';
 import { BookingModel } from '../3-models/bookingModel';
+import { ValidationError } from '../3-models/client-errors';
 
 class BookingController {
   public readonly router = express.Router();
@@ -12,6 +13,7 @@ class BookingController {
 
   private registerRoutes(): void {
     this.router.get('/bookings', this.getAllBookings, );
+    this.router.get('/instructors', this.getAllInstructors, );
     this.router.get('/booking/:_id([a-fA-F0-9]{24})', this.getBookingById);
     this.router.post('/bookings', this.addBooking);
     this.router.put('/bookings/:_id([a-fA-F0-9]{24})', this.editBooking);
@@ -26,6 +28,18 @@ class BookingController {
     try {
       const bookings = await bookingService.getAllBookings();
       response.json(bookings);
+    } catch (error: any) {
+      next(error);
+    }
+  }
+  private async getAllInstructors(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ): Promise<any> {
+    try {
+      const instructors = await bookingService.getAllInstructors();
+      response.json(instructors);
     } catch (error: any) {
       next(error);
     }
@@ -51,6 +65,11 @@ class BookingController {
     next: NextFunction
   ): Promise<any> {
     try {
+      const { serviceId, instructorId, userId, selectedDate, selectedTime } = request.body;
+      if (!serviceId || !instructorId || !userId || !selectedDate || !selectedTime) {
+        throw new ValidationError('Missing required fields.');
+      }
+  
       const booking = new BookingModel(request.body);
       const addedBooking = await bookingService.addBooking(booking);
       response.status(StatusCode.Created).json(addedBooking);
@@ -59,6 +78,8 @@ class BookingController {
       next(error);
     }
   }
+
+
 
   private async editBooking(
     request: Request,

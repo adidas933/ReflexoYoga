@@ -1,11 +1,17 @@
 import { Action,  PayloadAction } from '@reduxjs/toolkit';
 import { UserModel } from '../Models/UserModel';
 import { BookingModel } from '../Models/BookingModel';
+import { InstructorModel } from '../Models/InstructorModel';
 
 
 export function initBookings(currentState:BookingModel[], action: PayloadAction<BookingModel[]>) {
   const newState: BookingModel[] = action.payload
   console.log('Initializing bookings with: ', newState);
+  return newState
+}
+export function initInstructors(currentState:InstructorModel[], action: PayloadAction<InstructorModel[]>) {
+  const newState: InstructorModel[] = action.payload
+  console.log('Initializing instructors with: ', newState);
   return newState
 }
 

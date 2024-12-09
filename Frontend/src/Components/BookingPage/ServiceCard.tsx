@@ -11,7 +11,7 @@ interface ServiceCardProps {
   description: string;
   image: string;
   link: string;
-  onOrderNow:(serviceName:string) => void
+  onOrderNow:( serviceName:string) => void
 }
 
 const ServiceCard = ({ title, description, image, link,onOrderNow }: ServiceCardProps) => {
