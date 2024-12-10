@@ -14,19 +14,22 @@ import {
 } from '@mui/material'; // MUI Components
 import { notify } from '../../Utils/Notify';
 import { useEffect, useState } from 'react';
-
+import { useSelector } from 'react-redux';
+import { AppState } from '../../Redux/store';
+import { UserModel } from '../../Models/UserModel';
 interface Instructor {
   _id:string
   name:string
 }
 
 interface BookingFormProps {
-  serviceName: string;
+  serviceId: string;
 }
 
-export function BookingForm({ serviceName }: BookingFormProps) {
+export function BookingForm({ serviceId }: BookingFormProps) {
+  const user = useSelector<AppState, UserModel>((store) => store.user);
   const [instructors,setInstructors] = useState<Instructor[]>([])
-
+  
   const {
     register,
     handleSubmit,
@@ -57,13 +60,14 @@ export function BookingForm({ serviceName }: BookingFormProps) {
 
   async function send(booking: BookingModel) {
     try {
+      console.log(booking.serviceId);
       // Create FormData to handle submission
       const payload = {
         selectedDate: booking.selectedDate,
         selectedTime: booking.selectedTime,
         instructorId: booking.instructorId,
-        serviceId: booking.serviceId,
-        userId: booking.userId,
+        serviceId,
+        userId: user._id,
       };
       // Send data to the backend
       await bookingService.addBooking(payload);
@@ -99,7 +103,7 @@ export function BookingForm({ serviceName }: BookingFormProps) {
 
       <TextField
         variant="outlined"
-        value={serviceName}
+        value={serviceId}
         inputProps={{
           readOnly: true,
         }}

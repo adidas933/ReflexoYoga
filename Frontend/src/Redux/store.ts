@@ -1,29 +1,56 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import {
   addBooking,
+  addInstructor,
+  addService,
   deleteBooking,
+  deleteInstructor,
+  deleteService,
   editBooking,
+  editInstructor,
+  editService,
+  getBookingById,
+  getInstructorById,
+  getServiceById,
   initBookings,
   initInstructors,
+  initServices,
   initUser,
   logoutUser,
 } from './reducers';
 import { UserModel } from '../Models/UserModel';
 import { BookingModel } from '../Models/BookingModel';
 import { InstructorModel } from '../Models/InstructorModel';
+import { ServiceModel } from '../Models/ServiceModel';
 
 // Application state:
 export type AppState = {
   bookings: BookingModel[]
   instructors: InstructorModel[]
   user: UserModel;
+  services: ServiceModel[];
 };
 
+const serviceSlice = createSlice({
+  name:'services',
+  initialState:[] as ServiceModel[],
+  reducers: {
+    initServices,
+    getServiceById,
+    addService,
+    deleteService,
+    editService
+  }
+})
 const instructorSlice = createSlice({
   name:'instructors',
   initialState:[] as InstructorModel[],
   reducers: {
-    initInstructors
+    initInstructors,
+    getInstructorById,
+    addInstructor,
+    deleteInstructor,
+    editInstructor
   }
 })
 
@@ -33,6 +60,7 @@ const bookingSlice = createSlice({
   initialState: [] as BookingModel[],
   reducers: {
     initBookings,
+    getBookingById,
     addBooking,
     deleteBooking,
     editBooking,
@@ -49,6 +77,7 @@ const userSlice = createSlice({
 // Creating action creators:
 export const userActions = userSlice.actions;
 export const instructorActions = instructorSlice.actions;
+export const serviceActions = serviceSlice.actions;
 export const bookingActions = bookingSlice.actions
 // Main redux store:
 export const store = configureStore<AppState>({
@@ -56,6 +85,7 @@ export const store = configureStore<AppState>({
     bookings: bookingSlice.reducer,
     user: userSlice.reducer, 
     instructors: instructorSlice.reducer, 
+    services: serviceSlice.reducer, 
   },
 });
 
