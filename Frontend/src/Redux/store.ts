@@ -9,9 +9,6 @@ import {
   editBooking,
   editInstructor,
   editService,
-  getBookingById,
-  getInstructorById,
-  getServiceById,
   initBookings,
   initInstructors,
   initServices,
@@ -36,7 +33,6 @@ const serviceSlice = createSlice({
   initialState:[] as ServiceModel[],
   reducers: {
     initServices,
-    getServiceById,
     addService,
     deleteService,
     editService
@@ -47,7 +43,6 @@ const instructorSlice = createSlice({
   initialState:[] as InstructorModel[],
   reducers: {
     initInstructors,
-    getInstructorById,
     addInstructor,
     deleteInstructor,
     editInstructor
@@ -60,7 +55,6 @@ const bookingSlice = createSlice({
   initialState: [] as BookingModel[],
   reducers: {
     initBookings,
-    getBookingById,
     addBooking,
     deleteBooking,
     editBooking,

@@ -10,11 +10,10 @@ interface ServiceCardProps {
   title: string;
   description: string;
   image: string;
-  link: string;
   onOrderNow:( serviceName:string) => void
 }
 
-const ServiceCard = ({ title, description, image, link,onOrderNow }: ServiceCardProps) => {
+const ServiceCard = ({ title, description, image,onOrderNow }: ServiceCardProps) => {
   return (
     <Card
       sx={{

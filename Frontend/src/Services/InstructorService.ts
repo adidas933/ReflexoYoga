@@ -15,23 +15,11 @@ class InstructorService {
     return data;
   }
 
-  public async getInstructorById(_id: string): Promise<InstructorModel> {
-    const existingInstructor = store
-      .getState()
-      .instructors.find((instructor) => instructor._id === _id);
-    if (existingInstructor) {
-      return existingInstructor;
-    }
-    const response = await axios.get<InstructorModel>(
-      `${appConfig.instructorsUrl}${_id}`
-    );
-    const instructor = response.data;
-    const action = instructorActions.addInstructor(instructor);
-    store.dispatch(action);
-  }
-
-  public async addInstructor(instructor: InstructorModel): Promise<void[]> {
-    const response = await axios.post(appConfig.instructorsUrl, instructor);
+  public async addInstructor(instructor: InstructorModel): Promise<void> {
+    const response = await axios.post(appConfig.instructorsUrl, instructor, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    instructor.image = response.data.image;
     if (store.getState().instructors) {
       const action = instructorActions.addInstructor(instructor);
       store.dispatch(action);
@@ -45,13 +33,29 @@ class InstructorService {
     store.dispatch(action);
   }
 
-  public async editInstructor(instructor: InstructorModel) {
-    const response = await axios.put<InstructorModel>(
-      appConfig.instructorsUrl + instructor._id
-    );
-    const updatedInstructor = response.data;
-    const action = instructorActions.editInstructor(updatedInstructor);
-    store.dispatch(action);
+  public async editInstructor(
+    instructor: InstructorModel,
+    imageFile: File | null
+  ) {
+    const formData = new FormData();
+    Object.keys(instructor).forEach((key) => {
+      formData.append(key, (instructor as any)[key]);
+    });
+    if (imageFile) {
+      formData.append('image', imageFile);
+    }
+    try {
+      const response = await axios.put<InstructorModel>(
+        appConfig.instructorsUrl + instructor._id,
+        formData,
+        { headers: { 'Content-Type': 'multipart/form-data' } }
+      );
+      const updatedInstructor = response.data;
+      const action = instructorActions.editInstructor(updatedInstructor);
+      store.dispatch(action);
+    } catch (error) {
+      console.error('Error editing instructor: ', error);
+    }
   }
 }
 

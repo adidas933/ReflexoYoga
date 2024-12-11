@@ -13,23 +13,21 @@ import {
   MenuItem,
 } from '@mui/material'; // MUI Components
 import { notify } from '../../Utils/Notify';
-import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../Redux/store';
 import { UserModel } from '../../Models/UserModel';
-interface Instructor {
-  _id:string
-  name:string
-}
+import { InstructorModel } from '../../Models/InstructorModel';
+import { ServiceModel } from '../../Models/ServiceModel';
 
-interface BookingFormProps {
-  serviceId: string;
-}
-
-export function BookingForm({ serviceId }: BookingFormProps) {
+export function BookingForm() {
   const user = useSelector<AppState, UserModel>((store) => store.user);
-  const [instructors,setInstructors] = useState<Instructor[]>([])
-  
+  const instructors = useSelector<AppState, InstructorModel[]>(
+    (store) => store.instructors
+  );
+  const services = useSelector<AppState, ServiceModel[]>(
+    (store) => store.services
+  );
+
   const {
     register,
     handleSubmit,
@@ -38,16 +36,6 @@ export function BookingForm({ serviceId }: BookingFormProps) {
 
   const navigate = useNavigate();
 
-
-  useEffect(() => {
-    const fetchInstructors = async () => {
-      const data = await bookingService.getAllInstructors()
-      console.log('Fetched instructors: ' + data);
-      setInstructors(data)
-    }
-    fetchInstructors()
-  }, [])
-  
   // Function to validate the date
   const validateDate = (date: string) => {
     const today = new Date();
@@ -60,20 +48,21 @@ export function BookingForm({ serviceId }: BookingFormProps) {
 
   async function send(booking: BookingModel) {
     try {
-      console.log(booking.serviceId);
-      // Create FormData to handle submission
-      const payload = {
+      // Create payload
+      const payload: BookingModel = {
         selectedDate: booking.selectedDate,
         selectedTime: booking.selectedTime,
         instructorId: booking.instructorId,
-        serviceId,
         userId: user._id,
+        serviceId: booking.serviceId,
       };
+
       // Send data to the backend
       await bookingService.addBooking(payload);
+
       // Notify user of success
       notify.success('Booking created successfully');
-      navigate('/bookings'); // Redirect to booking list page
+      navigate('/thank-you'); // Redirect to booking list page
     } catch (error) {
       console.error('Error creating booking:', error);
       notify.error('Failed to create booking');
@@ -101,13 +90,25 @@ export function BookingForm({ serviceId }: BookingFormProps) {
         Book a Service
       </Typography>
 
-      <TextField
-        variant="outlined"
-        value={serviceId}
-        inputProps={{
-          readOnly: true,
-        }}
-      />
+      <FormControl fullWidth>
+        <InputLabel id="service-label">Service</InputLabel>
+        <Select
+          labelId="service-label"
+          {...register('serviceId', {
+            required: 'Service is required',
+          })}
+          error={!!errors.serviceId}
+        >
+          {services.map((service) => (
+            <MenuItem key={service._id} value={service._id}>
+              {service.title}
+            </MenuItem>
+          ))}
+        </Select>
+        <Typography variant="caption" color="error">
+          {errors.serviceId?.message}
+        </Typography>
+      </FormControl>
 
       <TextField
         label="Date"
@@ -143,8 +144,10 @@ export function BookingForm({ serviceId }: BookingFormProps) {
           })}
           error={!!errors.instructorId}
         >
-          {instructors.map((instructor) =>(
-            <MenuItem key={instructor._id} value={instructor._id}>{instructor.name}</MenuItem>
+          {instructors.map((instructor) => (
+            <MenuItem key={instructor._id} value={instructor._id}>
+              {instructor.name}
+            </MenuItem>
           ))}
         </Select>
         <Typography variant="caption" color="error">
@@ -163,11 +166,3 @@ export function BookingForm({ serviceId }: BookingFormProps) {
     </Box>
   );
 }
-/* 
-{
-  "serviceId":"6755694c1acc3733920e2caa",
-  "instructorId":"675567fe1acc3733920e2ca2",
-  "userId": "6752bb5fdab3d5c2760dd43c",
-  "selectedDate": "2024-12-15",
-  "selectedTime":"14:30"
-} */

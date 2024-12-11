@@ -13,12 +13,6 @@ class ServiceService {
     return services;
   }
 
-  public async getServiceById(_id: string) {
-    const service = await ServiceModel.findById(_id).exec();
-    if (!service)
-      throw new ResourceNotFoundError(`Service with Id ${_id} not found.`);
-    return service;
-  }
 
   public async addService(service: IServiceModel) {
     const error = service.validateSync();

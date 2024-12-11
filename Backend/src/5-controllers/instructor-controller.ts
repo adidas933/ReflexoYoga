@@ -15,16 +15,13 @@ class InstructorController {
 
   private registerRoutes(): void {
     this.router.get('/instructors', this.getAllInstructors);
-    this.router.get(
-      '/instructors/:_id([a-fA-F0-9]{24})',
-      this.getInstructorById
-    );
     this.router.post('/instructors', this.addInstructor);
     this.router.put('/instructors/:_id([a-fA-F0-9]{24})', this.editInstructor);
     this.router.delete(
       '/instructors/:_id([a-fA-F0-9]{24})',
       this.deleteInstructor
     );
+    this.router.get('/instructors/images/:image',this.getInstructorImage)
   }
 
   private async getAllInstructors(
@@ -40,19 +37,7 @@ class InstructorController {
     }
   }
 
-  private async getInstructorById(
-    request: Request,
-    response: Response,
-    next: NextFunction
-  ): Promise<any> {
-    try {
-      const _id = request.params._id;
-      const instructor = await instructorSerivce.getInstructorById(_id);
-      response.json(instructor);
-    } catch (error) {
-      next(error);
-    }
-  }
+
 
   private async addInstructor(
     request: Request,

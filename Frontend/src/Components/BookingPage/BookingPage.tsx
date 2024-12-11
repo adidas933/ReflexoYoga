@@ -1,49 +1,59 @@
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState, instructorActions, serviceActions } from '../../Redux/store';
 import {
-  Container,
-  Box,
-  Typography,
-  Grid,
   Accordion,
-  AccordionSummary,
   AccordionDetails,
+  AccordionSummary,
+  Box,
+  Container,
+  Grid,
+  Typography,
 } from '@mui/material';
 import ServiceCard from './ServiceCard';
-import { useState } from 'react';
 import { BookingForm } from './BookingForm';
+import { UserModel } from '../../Models/UserModel';
+import { ServiceModel } from '../../Models/ServiceModel';
+import { InstructorModel } from '../../Models/InstructorModel';
+import { BookingModel } from '../../Models/BookingModel';
+import { serviceService } from '../../Services/ServiceService';
+import { instructorService } from '../../Services/InstructorService';
 
 const BookingPage = () => {
-  const [selectedService, setSelectedService] = useState<string | null>(null);
+  const user = useSelector<AppState, UserModel>((store) => store.user);
+  const services = useSelector<AppState, ServiceModel[]>(
+    (store) => store.services
+  );
+  const instructors = useSelector<AppState, InstructorModel[]>(
+    (store) => store.instructors
+  );
+  const bookings = useSelector<AppState, BookingModel[]>(
+    (store) => store.bookings
+  );
 
-  const servicesList = [
-    {
-      id: '1', // Add unique ID
-      title: 'שיעור יוגה',
-      description: 'שיעור יוגה של 60 דקות להרפיה ומתיחות',
-      image: '/images/yoga-booking.jpg',
-      link: '/yoga-booking',
-    },
-    {
-      id: '2', // Add unique ID
-      title: 'טיפול רפלקסולוגי',
-      description: 'סשן רפלקסולוגי מרגיע לשחרור מתח.',
-      image: '/images/reflexology-booking.jpg',
-      link: '/reflexology-booking',
-    },
-    {
-      id: '3', // Add unique ID
-      title: 'מסמרי סאדהו',
-      description: 'סדנה ייחודית המשלבת עמידה על מסמרים.',
-      image: '/images/sadhu-nails-booking.jpg',
-      link: '/sadhu-nails-booking',
-    },
-    {
-      id: '4', // Add unique ID
-      title: 'אמבטיית קרח',
-      description: 'סדנת אמבטיית קרח המשלבת נשימות והיפר ונטילציה',
-      image: '/images/icebath-booking.jpg',
-      link: '/sadhu-nails-booking',
-    },
-  ];
+  const dispatch = useDispatch();
+  const [selectedService, setSelectedService] = useState('');
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const servicesData = await serviceService.getAllServices();
+        dispatch(serviceActions.initServices(servicesData));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const fetchInstructors = async () => {
+      try {
+        const instructorsData = await instructorService.getAllInstructors();
+        dispatch(instructorActions.initInstructors(instructorsData));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchServices();
+    fetchInstructors();
+  }, [dispatch]);
 
   return (
     <Container>
@@ -51,9 +61,14 @@ const BookingPage = () => {
         הזמן את השירות שלך
       </Typography>
       <Box sx={{ marginTop: '20px' }}>
-        <Grid container spacing={3} justifyContent="center" alignItems="stretch">
-          {servicesList.map((item) => (
-            <Grid item xs={12} sm={5} key={item.id}>
+        <Grid
+          container
+          spacing={3}
+          justifyContent="center"
+          alignItems="stretch"
+        >
+          {services.map((item) => (
+            <Grid item xs={12} sm={5} key={item._id}>
               <Accordion>
                 <AccordionSummary
                   aria-controls={`${item.title}-content`}
@@ -63,14 +78,13 @@ const BookingPage = () => {
                     title={item.title}
                     description={item.description}
                     image={item.image}
-                    link={item.link}
-                    onOrderNow={() => setSelectedService(item.id)} // Pass the ID
+                    onOrderNow={() => setSelectedService(item._id)} // Pass the ID
                   />
                 </AccordionSummary>
                 <AccordionDetails>
-                  {selectedService === item.id && (
+                  {selectedService === item._id && (
                     <Box sx={{ marginTop: '40px' }}>
-                      <BookingForm serviceId={item.id}  />
+                      <BookingForm />
                     </Box>
                   )}
                 </AccordionDetails>

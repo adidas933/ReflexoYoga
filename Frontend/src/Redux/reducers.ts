@@ -13,16 +13,6 @@ export function initInstructors(
   return newState;
 }
 
-export function getInstructorById(
-  currentState: InstructorModel[],
-  action: PayloadAction<string>
-): InstructorModel | undefined {
-  const instructorId = action.payload;
-  const instructor = currentState.find(
-    (instructor) => instructor._id === instructorId
-  );
-  return instructor;
-}
 
 export function addInstructor(
   currentState: InstructorModel[],
@@ -63,14 +53,13 @@ export function initBookings(
   return newState;
 }
 
-export function getBookingById(
+export function addBooking(
   currentState: BookingModel[],
-  action: PayloadAction<string>
-): BookingModel | undefined {
-  const bookingId = action.payload;
-  const booking = currentState.find((booking) => booking._id === bookingId);
-  return booking;
+  action: PayloadAction<BookingModel>
+) {
+  return [...currentState, action.payload];
 }
+
 
 export function deleteBooking(
   currentState: BookingModel[],
@@ -105,14 +94,7 @@ export function initServices(
   return newState;
 }
 
-export function getServiceById(
-  currentState: ServiceModel[],
-  action: PayloadAction<string>
-): ServiceModel | undefined {
-  const serviceId = action.payload;
-  const service = currentState.find((service) => service._id === serviceId);
-  return service;
-}
+
 
 export function addService(
   currentState: ServiceModel[],

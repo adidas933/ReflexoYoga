@@ -15,23 +15,11 @@ class ServiceService {
     return data;
   }
 
-  public async getServiceById(_id: string): Promise<ServiceModel> {
-    const existingService = store
-      .getState()
-      .services.find((service) => service._id === _id);
-    if (existingService) {
-      return existingService;
-    }
-    const response = await axios.get<ServiceModel>(
-      `${appConfig.servicesUrl}${_id}`
-    );
-    const service = response.data;
-    const action = serviceActions.addService(service);
-    store.dispatch(action);
-  }
-
-  public async addService(service: ServiceModel): Promise<void[]> {
-    const response = await axios.post(appConfig.servicesUrl, service);
+  public async addService(service: ServiceModel): Promise<void> {
+    const response = await axios.post(appConfig.servicesUrl, service, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    service.image = response.data.image;
     if (store.getState().services) {
       const action = serviceActions.addService(service);
       store.dispatch(action);
@@ -45,13 +33,27 @@ class ServiceService {
     store.dispatch(action);
   }
 
-  public async editService(service: ServiceModel) {
-    const response = await axios.put<ServiceModel>(
-      appConfig.servicesUrl + service._id
-    );
-    const updatedService = response.data;
-    const action = serviceActions.editService(updatedService);
-    store.dispatch(action);
+  public async editService(service: ServiceModel, imageFile: File | null) {
+    const formData = new FormData();
+    Object.keys(service).forEach((key) => {
+      formData.append(key, (service as any)[key]);
+    });
+    if (imageFile) {
+      formData.append('image',imageFile)
+    }
+    try {
+      const response = await axios.put<ServiceModel>(
+        appConfig.servicesUrl + service._id,formData, {headers:{'Content-Type': 'multipart/form-data'}}
+      );
+      const updatedService = response.data
+      const action = serviceActions.editService(updatedService)
+      store.dispatch(action)
+    } catch (error) {
+      console.error('Error editing service:', error);
+      throw error;
+
+    }
+ 
   }
 }
 

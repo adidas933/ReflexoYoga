@@ -13,7 +13,6 @@ class BookingController {
 
   private registerRoutes(): void {
     this.router.get('/bookings', this.getAllBookings, );
-    this.router.get('/bookings/:_id([a-fA-F0-9]{24})', this.getBookingById);
     this.router.post('/bookings', this.addBooking);
     this.router.put('/bookings/:_id([a-fA-F0-9]{24})', this.editBooking);
     this.router.delete('/bookings/:_id([a-fA-F0-9]{24})', this.deleteBooking);
@@ -33,19 +32,7 @@ class BookingController {
   }
 
 
-  private async getBookingById(
-    request: Request,
-    response: Response,
-    next: NextFunction
-  ): Promise<any> {
-    try {
-      const _id = request.params._id;
-      const booking = await bookingService.getBookingById(_id);
-      response.json(booking);
-    } catch (error: any) {
-      next(error);
-    }
-  }
+
 
   private async addBooking(
     request: Request,

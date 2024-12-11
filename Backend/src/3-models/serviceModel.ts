@@ -4,7 +4,6 @@ export interface IServiceModel extends Document {
   title: string,
   description: string,
   image: string,
-  link: string
 
 }
 
@@ -21,17 +20,12 @@ export const ServiceSchema = new Schema<IServiceModel>(
       type: String,
       required: [true, 'Missing description.'],
       minlength: [10, 'Description too short.'],
-      maxlength: [500, 'Description too long'],
+      maxlength: [2000, 'Description too long'],
       trim: true,
     },
     image: {
       type: String,
       required: [true, 'Missing image name'],
-      trim: true,
-    },
-    link: {
-      type: String,
-      required: [true, 'Missing link url'],
       trim: true,
     },
   },

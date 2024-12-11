@@ -15,7 +15,6 @@ class ServiceController {
 
   private registerRoutes(): void {
     this.router.get('/services', this.getAllServices);
-    this.router.get('/services/:_id([a-fA-F0-9]{24})', this.getServiceById);
     this.router.post('/services', this.addService);
     this.router.put('/services/:_id([a-fA-F0-9]{24})', this.editService);
     this.router.delete('/services/:_id([a-fA-F0-9]{24})', this.deleteService);
@@ -34,19 +33,7 @@ class ServiceController {
     }
   }
 
-  private async getServiceById(
-    request: Request,
-    response: Response,
-    next: NextFunction
-  ): Promise<any> {
-    try {
-      const _id = request.params._id;
-      const service = await serviceService.getServiceById(_id);
-      response.json(service);
-    } catch (error) {
-      next(error);
-    }
-  }
+
 
   private async addService(
     request: Request,

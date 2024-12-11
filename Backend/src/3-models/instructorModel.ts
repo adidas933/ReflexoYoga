@@ -20,7 +20,7 @@ export const InstructorSchema = new Schema<IInstructorModel>(
       type: String,
       required: [true, 'Missing bio.'],
       minlength: [10, 'Bio too short.'],
-      maxlength: [500, 'Bio too long'],
+      maxlength: [2000, 'Bio too long'],
       trim: true,
     },
     image: {

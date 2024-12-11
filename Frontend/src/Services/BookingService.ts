@@ -15,20 +15,7 @@ class BookingService {
     return data;
   }
 
-  public async getBookingById(_id: string): Promise<BookingModel> {
-    const existingBooking = store
-      .getState()
-      .bookings.find((booking) => booking._id === _id);
-    if (existingBooking) {
-      return existingBooking;
-    }
-    const response = await axios.get<BookingModel>(
-      `${appConfig.bookingsUrl}${_id}`
-    );
-    const booking = response.data;
-    const action = bookingActions.addBooking(booking);
-    store.dispatch(action);
-  }
+
 
   public async addBooking(booking: BookingModel): Promise<void[]> {
     const response = await axios.post(appConfig.bookingsUrl, booking);

@@ -12,12 +12,6 @@ class InstructorService {
     return instructors;
   }
 
-  public async getInstructorById(_id: string) {
-    const instructor = await InstructorModel.findById(_id).exec();
-    if (!instructor)
-      throw new ResourceNotFoundError(`Instructor with Id ${_id} not found.`);
-    return instructor;
-  }
 
   public async addInstructor(instructor: IInstructorModel) {
     const error = instructor.validateSync();

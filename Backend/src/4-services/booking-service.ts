@@ -17,10 +17,7 @@ class BookingService {
       .exec();
     return bookings;
   }
-  public async getAllInstructors() {
-    const instructors = await InstructorModel.find().exec();
-    return instructors;
-  }
+
 
   // Add a new booking
   public async addBooking(booking: IBookingModel) {
@@ -83,16 +80,7 @@ class BookingService {
     return deletedBooking;
   }
 
-  // Get a specific booking by ID
-  public async getBookingById(_id: string) {
-    const booking = await BookingModel.findById(_id)
-      .populate('serviceId')
-      .populate('instructorId')
-      .populate('userId')
-      .exec();
-    if (!booking) throw new ResourceNotFoundError(_id);
-    return booking;
-  }
+
 }
 
 export const bookingService = new BookingService();
