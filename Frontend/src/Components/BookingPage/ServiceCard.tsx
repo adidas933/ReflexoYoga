@@ -5,15 +5,21 @@ import {
   Button,
   CardMedia,
 } from '@mui/material';
+import ReactClampLine from 'react-clamp-line';
 
 interface ServiceCardProps {
   title: string;
   description: string;
   image: string;
-  onOrderNow:( serviceName:string) => void
+  onOrderNow: (serviceName: string) => void;
 }
 
-const ServiceCard = ({ title, description, image,onOrderNow }: ServiceCardProps) => {
+const ServiceCard = ({
+  title,
+  description,
+  image,
+  onOrderNow,
+}: ServiceCardProps) => {
   return (
     <Card
       sx={{
@@ -46,10 +52,16 @@ const ServiceCard = ({ title, description, image,onOrderNow }: ServiceCardProps)
           color="text.secondary"
           sx={{ minHeight: '60px', overflow: 'hidden' }}
         >
-          {description}
+          <ReactClampLine
+            type="text"
+            id={title}
+            text={description}
+            lines={3}
+            ellipsis="..."
+          />
         </Typography>
         <Button
-        onClick={() => onOrderNow(title)}
+          onClick={() => onOrderNow(title)}
           sx={{
             marginTop: '10px',
             backgroundColor: '#6a1b9a',
