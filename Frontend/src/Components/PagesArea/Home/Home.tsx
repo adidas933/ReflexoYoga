@@ -267,19 +267,29 @@ export function Home(): JSX.Element {
           {customers.map((testimonial, index) => (
             <Box key={index} sx={{ textAlign: 'center', p: 3 }}>
               <Paper sx={{ p: 3, textAlign: 'center' }}>
+                <Box
+                sx={{
+              width: 120,
+              height: 120,
+              margin: '0 auto',
+              borderRadius: '50%',
+              overflow: 'hidden',
+              boxShadow: 3,
+            }}>
+
                 <img
                   src={testimonial.image}
                   alt={`testimonial ${index + 1}`}
                   style={{
-                    width: '150px', // Set a specific width
-                    height: 'auto', // Maintain aspect ratio
-                    borderRadius: '50%', // Make the image circular
-                    margin: '0 auto', // Center the image
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
                   }}
-                />
-                <Typography variant="h6" sx={{ mt: 2 }}>
-                  "{testimonial.text}"
-                </Typography>
+                  />
+                  </Box>
+                  <Typography variant="h6" sx={{ mt: 2, fontStyle: 'italic', color: '#333' }}>
+            "{testimonial.text}"
+          </Typography>
               </Paper>
             </Box>
           ))}
