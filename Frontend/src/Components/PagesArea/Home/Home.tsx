@@ -13,8 +13,29 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useNavigate } from 'react-router-dom';
 import Arrow from './Arrow';
+import { InstructorModel } from '../../../Models/InstructorModel';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState, instructorActions } from '../../../Redux/store';
+import { useEffect } from 'react';
+import { instructorService } from '../../../Services/InstructorService';
 
 export function Home(): JSX.Element {
+  const instructors = useSelector<AppState, InstructorModel[]>(
+    (store) => store.instructors
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchInstructors = async () => {
+      try {
+        const instructorsData = await instructorService.getAllInstructors();
+        dispatch(instructorActions.initInstructors(instructorsData));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchInstructors();  }, [dispatch])
+  
   const studioAddress = '1600 Amphitheatre Parkway, Mountain View, CA'; // Replace with your studio address
   const googleMapsLink = `https://www.google.com/maps?q=${encodeURIComponent(
     studioAddress
@@ -82,23 +103,7 @@ export function Home(): JSX.Element {
     },
   ];
 
-  const instructors = [
-    {
-      name: 'עדי כהן',
-      specialty: 'מורה ליוגה דינאמית',
-      image: '/images/instructor1.jpg',
-    },
-    {
-      name: 'ליאור בס',
-      specialty: 'מומחית ברפלקסולוגיה',
-      image: '/images/instructor2.jpg',
-    },
-    {
-      name: 'יעל לוי',
-      specialty: 'יוגה שיקומית',
-      image: '/images/instructor3.jpg',
-    },
-  ];
+
 
   const plans = [
     {
@@ -121,15 +126,15 @@ export function Home(): JSX.Element {
   const customers = [
     {
       text: 'חוויה מדהימה, שינתה לי את החיים!',
-      image: '/images/client1.jpg',
+      image: '/images/review1.jpg',
     },
     {
       text: 'שירות מקצועי ואדיב!',
-      image: '/images/client2.jpg',
+      image: '/images/review2.jpg',
     },
     {
       text: 'ממליץ בחום על השיעורים והריטריטים!',
-      image: '/images/client3.jpg',
+      image: '/images/review3.jpg',
     },
   ];
 
@@ -200,7 +205,7 @@ export function Home(): JSX.Element {
         ))}
       </Slider>
 
-      {/* Bubbles for Instructors */}
+      {/* Instructors */}
       <Typography variant="h4" sx={{ textAlign: 'center', mt: 5 }}>
         הכירו את המדריכים שלנו
       </Typography>
@@ -226,7 +231,7 @@ export function Home(): JSX.Element {
               <Typography variant="h6" sx={{ mt: 2 }}>
                 {instructor.name}
               </Typography>
-              <Typography variant="body2">{instructor.specialty}</Typography>
+              
             </Box>
           </Grid>
         ))}
@@ -256,7 +261,7 @@ export function Home(): JSX.Element {
           מה הלקוחות שלנו אומרים
         </Typography>
 
-        <Slider {...settings}>
+        <Slider {...settings} nextArrow={<Arrow direction="right"/>} prevArrow={<Arrow direction="left"/>}>
           {' '}
           {/* Use the same settings for consistency */}
           {customers.map((testimonial, index) => (
@@ -265,7 +270,12 @@ export function Home(): JSX.Element {
                 <img
                   src={testimonial.image}
                   alt={`testimonial ${index + 1}`}
-                  style={{ width: '100%', borderRadius: '8px' }}
+                  style={{
+                    width: '150px', // Set a specific width
+                    height: 'auto', // Maintain aspect ratio
+                    borderRadius: '50%', // Make the image circular
+                    margin: '0 auto', // Center the image
+                  }}
                 />
                 <Typography variant="h6" sx={{ mt: 2 }}>
                   "{testimonial.text}"
