@@ -16,6 +16,7 @@ import BookingPage from '../../BookingPage/BookingPage';
 import { Breathing } from '../../PagesArea/Breathing/Breathing';
 import { Beginners } from '../../PagesArea/Beginners/Beginners';
 import { Tutorials } from '../../PagesArea/Tutorials/Tutorials';
+import ThankYouPage from '../../BookingPage/ThankYouPage';
 
 function Routing(): JSX.Element {
   return (
@@ -37,6 +38,7 @@ function Routing(): JSX.Element {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/bookme" element={<BookingPage />} />
+        <Route path="/thank-you" element={<ThankYouPage />} />
 
         <Route path="*" element={<Page404 />} />
       </Routes>

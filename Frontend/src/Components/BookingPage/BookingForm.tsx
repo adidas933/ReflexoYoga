@@ -18,7 +18,6 @@ import { AppState } from '../../Redux/store';
 import { UserModel } from '../../Models/UserModel';
 import { InstructorModel } from '../../Models/InstructorModel';
 import { ServiceModel } from '../../Models/ServiceModel';
-import ThankYouPage from './ThankYouPage';
 
 export function BookingForm() {
   const user = useSelector<AppState, UserModel>((store) => store.user);
@@ -63,7 +62,7 @@ export function BookingForm() {
 
       // Notify user of success
       notify.success('Booking created successfully');
-      <ThankYouPage/>
+      navigate('/thank-you');
     } catch (error) {
       console.error('Error creating booking:', error);
       notify.error('Failed to create booking');

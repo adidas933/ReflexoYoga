@@ -27,7 +27,7 @@ class App {
     this.server.use(expressFileUpload())
 
     // Configure images folder:
-    this.server.use('/files',express.static(path.join(__dirname,'1-assets')))
+    this.server.use('/api/bookings/images',express.static(path.join(__dirname,'1-assets')))
 
     // Register middleware:
     this.server.use(loggerMiddleware.logToConsole);

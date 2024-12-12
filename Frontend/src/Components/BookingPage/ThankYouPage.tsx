@@ -1,5 +1,4 @@
-import { Container, Typography, Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Container, Typography } from '@mui/material';
 
 const ThankYouPage = () => {
   return (
@@ -10,20 +9,7 @@ const ThankYouPage = () => {
       <Typography variant="body1" sx={{ textAlign: 'center', marginTop: '20px' }}>
         Your booking has been confirmed.
       </Typography>
-      <Button
-        component={Link}
-        to="/user-calendar"
-        sx={{
-          display: 'block',
-          marginTop: '20px',
-          backgroundColor: '#6a1b9a',
-          color: 'white',
-          '&:hover': { backgroundColor: '#9c4dcc' },
-          margin: '0 auto',
-        }}
-      >
-        Add to Calendar
-      </Button>
+    
     </Container>
   );
 };

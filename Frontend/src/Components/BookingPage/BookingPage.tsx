@@ -12,23 +12,13 @@ import {
 } from '@mui/material';
 import ServiceCard from './ServiceCard';
 import { BookingForm } from './BookingForm';
-import { UserModel } from '../../Models/UserModel';
 import { ServiceModel } from '../../Models/ServiceModel';
-import { InstructorModel } from '../../Models/InstructorModel';
-import { BookingModel } from '../../Models/BookingModel';
 import { serviceService } from '../../Services/ServiceService';
 import { instructorService } from '../../Services/InstructorService';
 
 const BookingPage = () => {
-  const user = useSelector<AppState, UserModel>((store) => store.user);
   const services = useSelector<AppState, ServiceModel[]>(
     (store) => store.services
-  );
-  const instructors = useSelector<AppState, InstructorModel[]>(
-    (store) => store.instructors
-  );
-  const bookings = useSelector<AppState, BookingModel[]>(
-    (store) => store.bookings
   );
 
   const dispatch = useDispatch();

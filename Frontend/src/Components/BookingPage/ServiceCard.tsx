@@ -7,6 +7,7 @@ import {
 } from '@mui/material';
 import ReactClampLine from 'react-clamp-line';
 
+
 interface ServiceCardProps {
   title: string;
   description: string;
@@ -52,6 +53,7 @@ const ServiceCard = ({
           color="text.secondary"
           sx={{ minHeight: '60px', overflow: 'hidden' }}
         >
+          
           <ReactClampLine
             type="text"
             id={title}
