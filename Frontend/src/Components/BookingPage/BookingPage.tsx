@@ -5,7 +5,9 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Alert,
   Box,
+  CircularProgress,
   Container,
   Grid,
   Typography,
@@ -20,31 +22,50 @@ const BookingPage = () => {
   const services = useSelector<AppState, ServiceModel[]>(
     (store) => store.services
   );
-
   const dispatch = useDispatch();
   const [selectedService, setSelectedService] = useState('');
+  const [loading,setLoading] = useState(true)
+  const [error,setError] = useState('')
 
   useEffect(() => {
-    const fetchServices = async () => {
+    const fetchData = async () => {
       try {
-        const servicesData = await serviceService.getAllServices();
+        setLoading(true);
+        const [servicesData, instructorsData] = await Promise.all([
+          serviceService.getAllServices(),
+          instructorService.getAllInstructors(),
+        ]);
         dispatch(serviceActions.initServices(servicesData));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    const fetchInstructors = async () => {
-      try {
-        const instructorsData = await instructorService.getAllInstructors();
         dispatch(instructorActions.initInstructors(instructorsData));
-      } catch (error) {
-        console.log(error);
+        setLoading(false);
+      } catch (err) {
+        console.error(err);
+        setError('Failed to fetch data. Please try again later.');
+        setLoading(false);
       }
     };
-    fetchServices();
-    fetchInstructors();
-  }, [dispatch]);
 
+    fetchData();
+  }, [dispatch]);
+  if (loading) {
+    return (
+      <Box sx={{ textAlign: 'center', marginTop: '50px' }}>
+        <CircularProgress />
+        <Typography variant="h6" sx={{ marginTop: '10px' }}>
+          טוען שירותים...
+        </Typography>
+      </Box>
+    );
+  }
+  if (error) {
+    return (
+      <Container>
+        <Alert severity="error" sx={{ marginTop: '20px', textAlign: 'center' }}>
+          {error}
+        </Alert>
+      </Container>
+    );
+  }
   return (
     <Container>
       <Typography variant="h4" sx={{ marginTop: '20px', textAlign: 'center' }}>

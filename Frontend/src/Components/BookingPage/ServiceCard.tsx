@@ -33,7 +33,7 @@ const ServiceCard = ({
         direction: 'rtl',
       }}
     >
-      <CardMedia component="img" height="140" image={image} alt={title} loading='lazy' />
+      <CardMedia component="img" height="140" image={image} alt={title}loading='lazy' />
       <CardContent
         sx={{
           display: 'flex',

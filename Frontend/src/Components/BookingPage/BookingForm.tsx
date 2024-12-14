@@ -11,7 +11,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
-} from '@mui/material'; // MUI Components
+} from '@mui/material';
 import { notify } from '../../Utils/Notify';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../Redux/store';
@@ -21,18 +21,17 @@ import { ServiceModel } from '../../Models/ServiceModel';
 
 export function BookingForm() {
   const user = useSelector<AppState, UserModel>((store) => store.user);
-  const instructors = useSelector<AppState, InstructorModel[]>(
-    (store) => store.instructors
-  );
-  const services = useSelector<AppState, ServiceModel[]>(
-    (store) => store.services
-  );
+  const instructors = useSelector<AppState, InstructorModel[]>(store => store.instructors);
+  const services = useSelector<AppState, ServiceModel[]>(store => store.services);
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<BookingModel>();
+    formState: { errors, isValid },
+    reset,
+  } = useForm<BookingModel>({
+    mode: 'onChange', // Trigger validation on field change
+  });
 
   const navigate = useNavigate();
 
@@ -48,7 +47,6 @@ export function BookingForm() {
 
   async function send(booking: BookingModel) {
     try {
-      // Create payload
       const payload: BookingModel = {
         selectedDate: booking.selectedDate,
         selectedTime: booking.selectedTime,
@@ -57,11 +55,9 @@ export function BookingForm() {
         serviceId: booking.serviceId,
       };
 
-      // Send data to the backend
       await bookingService.addBooking(payload);
-
-      // Notify user of success
       notify.success('Booking created successfully');
+      reset(); // Clear form on successful submission
       navigate('/thank-you');
     } catch (error) {
       console.error('Error creating booking:', error);
@@ -94,9 +90,7 @@ export function BookingForm() {
         <InputLabel id="service-label">Service</InputLabel>
         <Select
           labelId="service-label"
-          {...register('serviceId', {
-            required: 'Service is required',
-          })}
+          {...register('serviceId', { required: 'Service is required' })}
           error={!!errors.serviceId}
         >
           {services.map((service) => (
@@ -127,9 +121,7 @@ export function BookingForm() {
         label="Time"
         variant="outlined"
         type="time"
-        {...register('selectedTime', {
-          required: 'Time is required',
-        })}
+        {...register('selectedTime', { required: 'Time is required' })}
         error={!!errors.selectedTime}
         helperText={errors.selectedTime?.message}
         InputLabelProps={{ shrink: true }}
@@ -139,9 +131,7 @@ export function BookingForm() {
         <InputLabel id="instructor-label">Instructor</InputLabel>
         <Select
           labelId="instructor-label"
-          {...register('instructorId', {
-            required: 'Instructor is required',
-          })}
+          {...register('instructorId', { required: 'Instructor is required' })}
           error={!!errors.instructorId}
         >
           {instructors.map((instructor) => (
@@ -160,6 +150,7 @@ export function BookingForm() {
         color="primary"
         type="submit"
         sx={{ marginTop: 3 }}
+        disabled={!isValid} // Disable button if form is not valid
       >
         Confirm Booking
       </Button>
