@@ -7,7 +7,7 @@ export function About(): JSX.Element {
         <Grid item xs={12} md={6}>
           <img
             src="/images/stepbystepnails.jpg"
-            alt="Reflexology"
+            alt="Reflexology" loading='lazy'
             style={{ width: '100%', borderRadius: '8px' }}
           />
         </Grid>

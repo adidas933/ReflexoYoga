@@ -34,8 +34,9 @@ export function Home(): JSX.Element {
         console.log(error);
       }
     };
-    fetchInstructors();  }, [dispatch])
-  
+    fetchInstructors();
+  }, [dispatch]);
+
   const studioAddress = '1600 Amphitheatre Parkway, Mountain View, CA'; // Replace with your studio address
   const googleMapsLink = `https://www.google.com/maps?q=${encodeURIComponent(
     studioAddress
@@ -102,8 +103,6 @@ export function Home(): JSX.Element {
       buttonName: 'לשיעור ניסיון!',
     },
   ];
-
-
 
   const plans = [
     {
@@ -176,6 +175,7 @@ export function Home(): JSX.Element {
               color: 'white',
               textShadow: '0 2px 4px rgba(0, 0, 0, 0.8)',
               direction: 'rtl', // Right-to-left layout for Hebrew
+              loading: 'lazy',
             }}
           >
             <Typography variant="h2" sx={{ mb: 2 }} className="fade-in">
@@ -205,19 +205,14 @@ export function Home(): JSX.Element {
         ))}
       </Slider>
 
-      {/* Instructors */}
+      {/* Instructors Carousel */}
       <Typography variant="h4" sx={{ textAlign: 'center', mt: 5 }}>
         הכירו את המדריכים שלנו
       </Typography>
-      <Grid
-        container
-        spacing={3}
-        justifyContent="center"
-        sx={{ mt: 3, textAlign: 'center' }}
-      >
+      <Slider {...settings}>
         {instructors.map((instructor, index) => (
-          <Grid item xs={12} sm={4} key={index}>
-            <Box>
+            <Box key={index} sx={{textAlign:'center',p:3,         backgroundColor: '#dcdde2', // Slightly darker background
+            }}>
               <Avatar
                 src={instructor.image}
                 alt={instructor.name}
@@ -226,16 +221,16 @@ export function Home(): JSX.Element {
                   height: 120,
                   margin: '0 auto',
                   border: '4px solid #f50057',
+                  boxShadow:3,
+                  loading: 'lazy',
                 }}
               />
               <Typography variant="h6" sx={{ mt: 2 }}>
                 {instructor.name}
               </Typography>
-              
             </Box>
-          </Grid>
         ))}
-      </Grid>
+      </Slider>
 
       {/* More Information Section */}
       <Box sx={{ mt: 5, px: 3, direction: 'rtl' }}>
@@ -261,35 +256,43 @@ export function Home(): JSX.Element {
           מה הלקוחות שלנו אומרים
         </Typography>
 
-        <Slider {...settings} nextArrow={<Arrow direction="right"/>} prevArrow={<Arrow direction="left"/>}>
+        <Slider
+          {...settings}
+          nextArrow={<Arrow direction="right" />}
+          prevArrow={<Arrow direction="left" />}
+        >
           {' '}
           {/* Use the same settings for consistency */}
           {customers.map((testimonial, index) => (
             <Box key={index} sx={{ textAlign: 'center', p: 3 }}>
-              <Paper sx={{ p: 3, textAlign: 'center' }}>
+              <Paper sx={{ p: 3, textAlign: 'center', backgroundColor: '#dcdde2', }}>
                 <Box
-                sx={{
-              width: 120,
-              height: 120,
-              margin: '0 auto',
-              borderRadius: '50%',
-              overflow: 'hidden',
-              boxShadow: 3,
-            }}>
-
-                <img
-                  src={testimonial.image}
-                  alt={`testimonial ${index + 1}`}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
+                  sx={{
+                    width: 120,
+                    height: 120,
+                    margin: '0 auto',
+                    borderRadius: '50%',
+                    overflow: 'hidden',
+                    boxShadow: 3, backgroundColor: '#dcdde2',
                   }}
+                >
+                  <img
+                    src={testimonial.image}
+                    alt={`testimonial ${index + 1}`}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                    loading="lazy"
                   />
-                  </Box>
-                  <Typography variant="h6" sx={{ mt: 2, fontStyle: 'italic', color: '#333' }}>
-            "{testimonial.text}"
-          </Typography>
+                </Box>
+                <Typography
+                  variant="h6"
+                  sx={{ mt: 2, fontStyle: 'italic', color: '#333' }}
+                >
+                  "{testimonial.text}"
+                </Typography>
               </Paper>
             </Box>
           ))}
@@ -320,6 +323,7 @@ export function Home(): JSX.Element {
                     borderTopLeftRadius: '8px',
                     borderTopRightRadius: '8px',
                   }}
+                  loading="lazy"
                 />
                 <Typography variant="h6" sx={{ mt: 2 }}>
                   {plan.name}
@@ -336,15 +340,15 @@ export function Home(): JSX.Element {
         </Grid>
       </Box>
 
-      {/* Classes */}
+      {/* Classes Carousel */}
       <Box sx={{ mt: 5, px: 3, direction: 'rtl' }}>
-        <Typography variant="h4" sx={{ textAlign: 'center', mb: 3 }}>
+        <Typography variant="h4" sx={{ textAlign: 'center', mt: 5 }}>
           כיתות ושיעורים
         </Typography>
-        <Grid container spacing={3}>
+        <Slider {...settings}>
+
           {classes.map((classItem, index) => (
-            <Grid item xs={12} sm={4} key={index}>
-              <Box sx={{ textAlign: 'center' }}>
+              <Box key={index} sx={{ textAlign: 'center',p:3 }}>
                 <img
                   src={classItem.image}
                   alt={classItem.title}
@@ -353,7 +357,8 @@ export function Home(): JSX.Element {
                     height: 'auto',
                     borderRadius: '8px',
                   }}
-                />
+                  loading="lazy"
+                  />
                 <Typography variant="h6" sx={{ mt: 2 }}>
                   {classItem.title}
                 </Typography>
@@ -364,9 +369,8 @@ export function Home(): JSX.Element {
                   הצטרף לשיעור
                 </Button>
               </Box>
-            </Grid>
           ))}
-        </Grid>
+          </Slider>
 
         {/* Location Section */}
         <Box sx={{ mt: 5, px: 3, textAlign: 'center' }}>
