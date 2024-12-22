@@ -1,9 +1,9 @@
 import mongoose, { Document, model, Schema } from 'mongoose';
 
 export interface IBookingModel extends Document {
-  serviceId: { type: mongoose.Schema.Types.ObjectId; ref: 'ServiceId' };
+  serviceId : { type: mongoose.Schema.Types.ObjectId; ref: 'ServiceId' } ;
   instructorId: { type: mongoose.Schema.Types.ObjectId; ref: 'InstructorId' };
-  userId: { type: mongoose.Schema.Types.ObjectId; ref: 'User' };
+  userId: { type: mongoose.Schema.Types.ObjectId; ref: 'UserModel' };
   selectedDate: Date;
   selectedTime: string;
 }
@@ -22,7 +22,7 @@ export const BookingSchema = new Schema<IBookingModel>(
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'UserModel',
       required: [true, 'Missing user id'],
     },
     selectedDate: {

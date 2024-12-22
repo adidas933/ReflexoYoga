@@ -15,7 +15,11 @@ class BookingService {
     return data;
   }
 
-
+  public async getUserBookings(userId: string): Promise<BookingModel[]> {
+    const response = await axios.get(`${appConfig.bookingsUrl}${userId}`);
+    const userBookings = response.data;
+    return userBookings;
+  }
 
   public async addBooking(booking: BookingModel): Promise<void[]> {
     const response = await axios.post(appConfig.bookingsUrl, booking);

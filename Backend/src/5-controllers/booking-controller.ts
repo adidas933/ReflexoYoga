@@ -12,7 +12,8 @@ class BookingController {
   }
 
   private registerRoutes(): void {
-    this.router.get('/bookings', this.getAllBookings, );
+    this.router.get('/bookings', this.getAllBookings );
+    this.router.get('/bookings/:userId([a-fA-F0-9]{24})', this.getUserBookings );
     this.router.post('/bookings', this.addBooking);
     this.router.put('/bookings/:_id([a-fA-F0-9]{24})', this.editBooking);
     this.router.delete('/bookings/:_id([a-fA-F0-9]{24})', this.deleteBooking);
@@ -25,6 +26,20 @@ class BookingController {
   ): Promise<any> {
     try {
       const bookings = await bookingService.getAllBookings();
+      response.json(bookings);
+    } catch (error: any) {
+      next(error);
+    }
+  }
+
+  private async getUserBookings(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ): Promise<any> {
+    try {
+      const userId = request.params.userId
+      const bookings = await bookingService.getUserBookings(userId);
       response.json(bookings);
     } catch (error: any) {
       next(error);

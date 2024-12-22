@@ -26,6 +26,7 @@ function NavMenu(): JSX.Element {
     { label: 'רפלקסולוגיה', to: '/reflexology' },
     { label: 'ריטריטים', to: '/retreats' },
     { label: 'צור קשר', to: '/contact' },
+    { label: 'איזור אישי', to: '/user-page' },
   ];
 
   const practiceMenu = [

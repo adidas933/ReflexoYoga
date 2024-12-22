@@ -18,6 +18,17 @@ class BookingService {
     return bookings;
   }
 
+  public async getUserBookings(userId: string) {
+    console.log('Querying bookings for userId:', userId);
+
+    const bookings = await BookingModel.find({ userId })
+    .populate('serviceId', 'title')   // Populate service with only the 'name' field
+    .populate('instructorId', 'name')  // Populate instructor with 'firstName' and 'lastName'
+    .populate('userId')
+      .exec();
+    console.log('Found bookings:', bookings);
+    return bookings;
+  }
 
   // Add a new booking
   public async addBooking(booking: IBookingModel) {
@@ -31,9 +42,15 @@ class BookingService {
     const instructorId = await InstructorModel.findById(
       booking.instructorId
     ).exec();
-    console.log("Instructor id: " + instructorId);
+    console.log('Instructor id: ' + instructorId);
     if (!instructorId) throw new ResourceNotFoundError('Instructor not found.');
-    if (!instructorId.unavailableTimes || !Array.isArray(instructorId.unavailableTimes)) throw new ResourceNotFoundError('Instructor availability data is missing or invalid.');
+    if (
+      !instructorId.unavailableTimes ||
+      !Array.isArray(instructorId.unavailableTimes)
+    )
+      throw new ResourceNotFoundError(
+        'Instructor availability data is missing or invalid.'
+      );
     // Check instructor availablity
     const isUnavailable = instructorId.unavailableTimes.includes(
       booking.selectedTime
@@ -79,8 +96,6 @@ class BookingService {
     if (!deletedBooking) throw new ResourceNotFoundError(_id);
     return deletedBooking;
   }
-
-
 }
 
 export const bookingService = new BookingService();
